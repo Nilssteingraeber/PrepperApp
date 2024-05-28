@@ -68,18 +68,15 @@ import Header from './header/HeaderProfile.vue'
               <h1>Grocery List</h1>
             </div>
             <div class="col align-self-center">
-              <button type="button" class="btn btn-secondary align-self-">Add</button>
+              <button type="button" class="btn btn-secondary align-self-" id="add-groceries">Add</button>
             </div>
           </div>
       <!--________Hier werden die Produkte stehen "via javascript"??_________-->
-          <div id="products">
-            <div class="form-check" style="border-bottom: 3px solid lightgray;">
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-              <label class="form-check-label" for="defaultCheck1"></label>
-            </div>
+          <div id="products" style="border-bottom: 3px solid lightgrey;;">
+          
 
-            <ul>
-              <li></li>
+            <ul class="list-group">
+              <li class="list-group-item" id="grocery-item"></li>
             </ul>
           </div>
         </div>
