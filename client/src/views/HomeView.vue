@@ -1,45 +1,46 @@
 <script setup lang="ts">
-import { ref } from "vue";
-
-// Global constant containing the API base URL -> /api
-const baseURL = __API_PATH__;
-
-// Reactive variables for managing loading state and response message
-const isLoading = ref(false);
-const message = ref("");
-
-// Function to fetch data from the server
-async function fetchAPI() {
-  try {
-    // Set loading state to true
-    isLoading.value = true;
-
-    // Send a GET request to the server
-    const response = await fetch(baseURL);
-
-    // Parse the JSON response
-    const data = await response.json();
-
-    // Update the message with the response data
-    message.value = data;
-  } catch (error) {
-    // Handle errors
-    message.value = "Error fetching data";
-    console.error(error);
-  } finally {
-    // Reset loading state
-    isLoading.value = false;
-  }
-}
+import Header from './header/HeaderProfile.vue'
 </script>
 
 <template>
-  <!-- Button to trigger the fetchAPI function -->
-  <Button @click="fetchAPI">Fetch</button>
-
-  <!-- Display loading message while fetching data -->
-  <p v-if="isLoading">Loading...</p>
-
-  <!-- Display the response message if available -->
-  <p v-else-if="message">{{ message }}</p>
+  <div id="home">
+    <div class="home-overlay">
+      <div class="header">
+        <Header></Header> 
+      </div>
+      <h1 id="text">CREATE YOUR GROCERY LIST FOR YOUR NEXT GROCERIES</h1>
+    </div>
+  </div>
 </template>
+
+
+<style>
+  #text{
+    color: white;
+    font-size: 75px;
+    align-content: center;
+    padding-top: 20rem;
+    padding-left: 4%;
+    padding-right: 30%;
+  }
+
+  #home{
+    height: 100vh;
+    width: auto;
+    background-image: url("@/assets/background.svg ");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  .home-overlay{
+    height: 100vh;
+    width: auto;
+    background-color: #363636d5;
+  }
+  .header{
+    background-color: rgb(255, 255, 255);
+    padding: 1px;
+    max-height: fit-content;
+  }
+</style>
