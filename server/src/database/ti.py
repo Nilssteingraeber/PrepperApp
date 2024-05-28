@@ -33,7 +33,7 @@ entry_id = entries.insert_one({
     {
       "name": "Salt",
       "amount": 1.0,
-      "price": 0.5,
+      "price": 1.5,
       "calories": 0,
       "nutrients": [0, 0, 0, 0]
     }
