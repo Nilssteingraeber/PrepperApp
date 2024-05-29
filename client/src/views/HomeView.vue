@@ -8,7 +8,7 @@ import Header from './header/HeaderProfile.vue'
       <div class="header">
         <Header></Header> 
       </div>
-      <h1 id="text">CREATE YOUR GROCERY LIST FOR YOUR NEXT GROCERIES</h1>
+      <h1 id="text">CREATE YOUR GROCERY LIST</h1>
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ import Header from './header/HeaderProfile.vue'
   #home{
     height: 100vh;
     width: auto;
-    background-image: url("@/assets/background.svg ");
+    background-image: url("@/assets/background.svg");
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;

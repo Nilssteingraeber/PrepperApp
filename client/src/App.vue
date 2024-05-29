@@ -7,7 +7,7 @@ import { ref } from 'vue'
 <template>
   <div class="appBody">
     <div>
-      <RouterView />
+      <RouterView/>
     </div>
   </div>
 </template>
