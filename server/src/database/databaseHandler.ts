@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-import "../models/users/user";
 import {UserModel, User} from "../schemas/users/User";
 
 // ### Database ###
@@ -9,8 +8,10 @@ import {UserModel, User} from "../schemas/users/User";
 export const databaseHandler = async () => {
   console.log("Connecting to Database at " + process.env.MONGO_DB_URL + "..");
 
-  await mongoose.connect('mongodb://127.0.0.1:27017/test');
-  console.log("Connected to Database.");
+  // await mongoose.connect('mongodb://127.0.0.1:27017/test');
+  // console.log("Connected to Database.");
+
+  return 
 
   const newUserData: User = {
     name: "HI",
