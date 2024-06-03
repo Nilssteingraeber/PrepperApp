@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { UserModel, User } from "../schemas/User";
 import { PlannerModel, Planner } from "../schemas/Planner";
-import { EntryModel, Entry } from "./schemas/Entry";
+import { EntryModel, Entry } from "../schemas/Entry";
 import { MealModel, Meal } from "../schemas/Meal";
 import { RecipeModel, Recipe } from "../schemas/Recipe";
 

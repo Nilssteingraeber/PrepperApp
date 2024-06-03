@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+"""from pymongo import MongoClient
 from bson import ObjectId
 
 # Connect to MongoDB
@@ -74,3 +74,4 @@ entries.update_one({"_id": entry_id}, {"$push": {"meals": meal_id}})
 meals.update_one({"_id": meal_id}, {"$push": {"recipes": recipe_id}})
 
 
+"""
