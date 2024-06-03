@@ -14,7 +14,8 @@ export default defineConfig((env) => {
 
   return {
     envDir: './',
-    
+
+    // make the API path globally available in the client
     define: {
       __API_PATH__: JSON.stringify(serverAPIPath),
     },
