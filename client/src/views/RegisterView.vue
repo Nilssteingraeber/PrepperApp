@@ -19,7 +19,7 @@ import {RouterLink} from 'vue-router'
 					/></RouterLink>
 				</div>
 			<form>
-				<div class="container">
+				<div class="container" style="border-top: 2px solid lightgray;">
 					<h1>Register</h1>
 					<div class="mb-3">
 						<label for="exampleInputFirstName1" class="form-label">First Name</label>
@@ -67,6 +67,7 @@ import {RouterLink} from 'vue-router'
 	background-position: center;
 	background-attachment: fixed;
 	background-size: cover;
+	
 }
 
 .register-overlay{
@@ -76,7 +77,7 @@ import {RouterLink} from 'vue-router'
 }
 
 #register-area{
-	height: 70vh;
+	height: 75vh;
 	background-color: white;
 }
 

@@ -14,9 +14,12 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@types/jquery": "^3.5.30",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "express": "^4.19.2",
+    "jquery": "^3.7.1",
+    "popper.js": "^1.16.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },

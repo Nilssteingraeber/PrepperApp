@@ -32,6 +32,7 @@ import Header from './header/HeaderProfile.vue'
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
+    
   }
   .home-overlay{
     height: 100vh;
@@ -40,7 +41,9 @@ import Header from './header/HeaderProfile.vue'
   }
   .header{
     background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    border-bottom: 1px solid lightgray;
     padding: 1px;
-    max-height: fit-content;
+    
   }
 </style>

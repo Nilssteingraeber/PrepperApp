@@ -3,12 +3,13 @@ import Header from './header/HeaderProfile.vue'
 </script>
 
 <template>
+<div class="products-page">
 	<div class="header">
 		<Header></Header>
 	</div>
 	<div class="d-flex flex-row align-self-stretch">
-    <div class="col-2" id="side-bar">
-		<div class="vstack gap-3 mx-2" >
+    <div class="col-2" id="sidebar">
+		<div class="vstack gap-2 m-2" >
 			<a class="p-3 rounded" href="/profile" id="profile-link">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" class="bi bi-house-fill" viewBox="0 0 16 16" style="margin-right: 2%;">
 					<path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
@@ -33,4 +34,13 @@ import Header from './header/HeaderProfile.vue'
 		</div>
     </div>
 	</div>
+</div>
 </template>
+
+<style>
+	.products-page{
+	height: 100vh;
+	width: 100vw;
+	background-color: #36a5913b
+}
+</style>
