@@ -56,3 +56,9 @@ npm run test:e2e -- --debug
 ```sh
 npm run lint
 ```
+
+
+
+
+
+Install MongoDB https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
