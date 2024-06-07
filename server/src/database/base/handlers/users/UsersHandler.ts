@@ -4,7 +4,7 @@ import { ListUsersParams } from "./UsersRequestParameters";
 export const registerUser = async (data: User): Promise<any> => {
   
 
-  const usernameExist = await UserModel.findOne({"username": data.username})
+  const usernameExist = await UserModel.findOne({"email": data.email})
   console.log("Exist?: " + usernameExist)
 
   if (usernameExist !== null) {

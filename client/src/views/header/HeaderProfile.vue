@@ -33,6 +33,7 @@ import {RouterLink} from 'vue-router'
 						<li><RouterLink to="/products" id="header-link"><a class="dropdown-item">Products</a></RouterLink></li>
 						<li><RouterLink to="/recipes" id="header-link"><a class="dropdown-item">Recipes</a></RouterLink></li>
 						<li><RouterLink to="/calender" id="header-link"><a class="dropdown-item">Calender</a></RouterLink></li>
+						<li><RouterLink to="/calender" id="header-link"><a class="dropdown-item">Calender</a></RouterLink></li>
 						<li><RouterLink to="/settings" id="header-link"><a class="dropdown-item">Settings</a></RouterLink></li>
 					</ul>
 				</div>

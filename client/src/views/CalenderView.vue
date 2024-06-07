@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import Header from './header/HeaderProfile.vue';
 import $ from 'jquery';
+import CycleSelectionHeader from "./cycleHeader/CycleSelectionHeader.vue"
+import {Cycle, CycleType} from '@/code/cycle/Cycle';
+
+const currentCycle = new Cycle(CycleType.ONE_WEEK)
+console.log(currentCycle)
 
 $(function() {
 	$(".progress").each(function() {
@@ -57,6 +62,7 @@ $(function() {
 		</div>
 
 		<div class="col-10">
+			<CycleSelectionHeader :cycle="currentCycle"></CycleSelectionHeader>
 			<div class="col-12 shadow p-3 m-3 bg-white rounded" id="calender-calories">
 				<div class="h2 font-weight-bold text-center" id="change-calories-week-carbs"  style="border-bottom: 2px solid lightgray;">Calories eaten today</div>
 				<div class="d-flex flex-row">
