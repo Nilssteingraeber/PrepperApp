@@ -14,20 +14,10 @@ import {RouterLink} from 'vue-router'
 				height="45"
 			/><label  id="brand-name">Prepper</label></RouterLink>
 		</div>
-		<div class="col-3 align-self-center">
+		<div class="col-6 align-self-center">
 			<form class="d-flex">
 				<input class="form-control pe-sm-5 " type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-secondary mx-3" type="submit">Search</button>
-			</form>
-		</div>
-		<div class="col-2 align-self-center">
-			<form class="d-flex">
-				<RouterLink to="/register" id="header-link">Register</RouterLink>
-			</form>
-		</div>
-		<div class="col-1 align-self-center">
-			<form class="d-flex">
-				<RouterLink to="/login" id="header-link">Login</RouterLink>
+				<button class="btn btn-outline-secondary" type="submit">Search</button>
 			</form>
 		</div>
 		<div class="col-3" id="header-profile" style="text-align: right;">
