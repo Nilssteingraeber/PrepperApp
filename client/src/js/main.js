@@ -194,14 +194,14 @@ function show_meals(meals, month, day) {
         // Go through and add each meal as a card to the meals container
         for(var i=0; i<meals.length; i++) {
             meal_card = $("<div class='meal-card'></div>");
-            meal_name = $("<div class='meal-name'>"+meals[i]["meal"]+":</div>");
-            var meal_mealtime = $("<div class='meal-mealtime'>"+meals[i]["mealtime"]+" </div>");
+            var meal_mealtime = $("<div class='meal-mealtime'>"+meals[i]["mealtime"]+":</div>");
+            meal_name = $("<div class='meal-name'>"+meals[i]["meal"]+" </div>");
             if(meals[i]["cancelled"]===true) {
                 $(meal_card).css({
                     "border-left": "10px solid #FF1744"
                 });
             }
-            $(meal_card).append(meal_name).append(meal_mealtime);
+            $(meal_card).append(meal_mealtime).append(meal_name);
             $(".meals-container").append(meal_card);
         }
     }

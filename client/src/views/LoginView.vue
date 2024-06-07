@@ -11,8 +11,8 @@ import {RouterLink} from 'vue-router'
     <div class="col-7 shadow p-3 m-3 bg-white rounded">
       <div class="row">
       <div class="col-5" id="login-area" style="border-right: 3px solid lightgray;">
-        <div class="row justify-content-around" id="second-row" >
-          <div class="col-md-12 align-self-around offset-md-6">
+        <div class="d-flex flex-column" id="second-row">
+          <div class="d-flex flex-column col-12 align-items-center">
             <RouterLink to="/">
               <img
                 alt="Prepper logo"
@@ -20,13 +20,14 @@ import {RouterLink} from 'vue-router'
                 src="@/assets/logo_prepper_text.svg"
                 width="125"
                 height="125"
-                />
-              </RouterLink>
+              />
+            </RouterLink>
           </div>
-          <div class="col-12 align-self-end" id="login-text">
-            <form>
+        </div>
+          <div class="row align-self-stretch" id="login-text">
+            <div class="col">
               <label style="font-size: medium;">Don't have an Account?
-                <RouterLink to="/register">
+                <RouterLink to="/register" style="text-decoration: none;">
                   <a style="color: #49416D;">Register</a>
                 </RouterLink>
               </label>
@@ -36,32 +37,32 @@ import {RouterLink} from 'vue-router'
                 and
                 <a style="color: #49416D">conditions</a>
               </label>
-            </form>
+            </div>
           </div>
-      </div>
+      
     </div>
 
       <div class="col align-content-center " id="login-area">
         <div class="container-sm">
-          <h1>Account Login</h1>
-          <form>
+          <div class="h1 bold text-start">Account Login</div>
+          <div class="input-group-lg">
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1">
+              <label for="loginEmail" class="form-label">E-mail address</label>
+              <input type="email" class="form-control" id="loginEmail" placeholder="E-Mail">
             </div>
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
+              <label for="loginPassword" class="form-label">Password</label>
+              <input type="password" class="form-control" id="loginPassword" placeholder="Password">
             </div>
 
               <div class="mb-3 form-check">
                 <div class="row">
                 <div class="col align-content-center">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="form-check-input">Remember Me</label>
+                  <input type="checkbox" class="form-check-input" id="rememberMe">
+                  <label class="form-check-label" for="frememberMe">Remember Me</label>
                 </div>
                 <div class="col text-end mx-auto">
-                  <button type="button" class="btn btn-link">Forgot Password</button>
+                  <button type="button" class="btn btn-link" id="forgotPassword">Forgot Password</button>
                 </div>
               </div>
               </div>
@@ -69,7 +70,7 @@ import {RouterLink} from 'vue-router'
             <div class="d-grid gap-2 col-12 mx-auto">
               <button type="submit" class="btn btn-secondary">Sign In</button>
             </div>
-          </form>
+          </div>
         </div>
         </div>
       </div>
@@ -99,7 +100,7 @@ import {RouterLink} from 'vue-router'
   }
 
   #login-area{
-    height: 50vh;
+    padding: 1%;
     background-color: white;
   }
 
@@ -108,13 +109,10 @@ import {RouterLink} from 'vue-router'
   }
 
   #second-row{
-    padding-top: 20px;
-    height: 50vh;
+    height: 40vh;
   }
 
   #login-text{
-    padding-left: 20px;
-    padding-bottom: 10px;
     color: grey;
   }
 </style>

@@ -60,21 +60,21 @@ $(function() {
 			<div class="col-12 shadow p-3 m-3 bg-white rounded" id="calender-calories">
 				<div class="h2 font-weight-bold text-center" id="change-calories-week-carbs"  style="border-bottom: 2px solid lightgray;">Calories eaten today</div>
 				<div class="d-flex flex-row">
-					<div class="col-3 align-self-center" style="margin-left: 10%;border-right: 2px solid lightgray;">
-						<div class="form-check">
+					<div class="col-4 align-self-center">
+						<div class="form-check offset-5">
 							<input class="form-check-input" type="checkbox" value="" id="flexCheckBreakfast" checked>
 							<label class="form-check-label" for="flexCheckBreakfast">Breakfast</label>
 							</div>
-						<div class="form-check">
+						<div class="form-check offset-5">
 							<input class="form-check-input" type="checkbox" value="" id="flexCheckLunch" checked>
 							<label class="form-check-label" for="flexCheckLunch">Lunch</label>
 						</div>
-						<div class="form-check">
+						<div class="form-check offset-5">
 							<input class="form-check-input" type="checkbox" value="" id="flexCheckDinner">
 							<label class="form-check-label" for="flexCheckDinner">Dinner</label>
 						</div>
 					</div>
-					<div class="col-4" style="border-right: 2px solid lightgray;">
+					<div class="col-4 align-content-center" style="border-left: 2px solid lightgray; border-right: 2px solid lightgray;">
 						<div class="progress mx-auto" data-value='75'>
 							<span class="progress-left">
 								<span class="progress-bar border-primary"></span>
@@ -87,11 +87,10 @@ $(function() {
 							</div>
 						</div>
 					</div>
-					<div class="col-1"></div>
-					<div class="col-4">
-						<div class="h4 font-weight-bold text-start" id="change-calories-day-carbs">Carbohydrates: 213g</div>
-						<div class="h4 font-weight-bold text-start" id="change-calories-day-protein">Protein: 95g</div>
-						<div class="h4 font-weight-bold text-start" id="change-calories-day-fat">Fat: 62g</div>
+					<div class="col-4 text-start">
+						<div class="h4 font-weight-bold offset-4" id="change-calories-day-carbs">Carbohydrates: 213g</div>
+						<div class="h4 font-weight-bold offset-4" id="change-calories-day-protein">Protein: 95g</div>
+						<div class="h4 font-weight-bold offset-4" id="change-calories-day-fat">Fat: 62g</div>
 					</div>
 				</div>
 			</div>
@@ -108,9 +107,17 @@ $(function() {
 						<div class="calendar-container">
 							<div class="calendar">  
 								<div class="year-header"> 
-									<button class="btn link-secondary left-button" id="prev"><</button>
+									<button class="btn link-secondary left-button" id="prev">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+										</svg>
+									</button>
 									<span class="year" id="label"></span> 
-									<button class="btn link-secondary right-button" id="next">></button>
+									<button class="btn link-secondary right-button" id="next">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+										</svg>
+									</button>
 								</div> 
 								<table class="months-table w-100"> 
 									<tbody>
@@ -176,7 +183,6 @@ $(function() {
 										</div>
 										<div class="col-5"></div>
 									</div>
-
 									<input type="button" value="Cancel" class="button" id="cancel-button">
 									<input type="button" value="OK" class="button" id="ok-button">
 								</div>
@@ -194,7 +200,6 @@ $(function() {
 </template>
 
 <style>
-/*@import url('../assets/calender-css/style.css');*/
 #calender-page{
 	background-color: #36a5913b;
 	width: 100vw;
@@ -202,7 +207,7 @@ $(function() {
 }
 
 #calender-bot{
-	height: calc(100vh - 300.8px);
+	height: calc(100vh - 300px);
 }
 
 /*_______Progressbar______*/

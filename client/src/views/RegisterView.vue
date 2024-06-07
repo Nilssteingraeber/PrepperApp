@@ -23,28 +23,28 @@ import {RouterLink} from 'vue-router'
 					/></RouterLink>
 				</div>
 			<form>
-				<div class="container" style="border-top: 2px solid lightgray;">
-					<h1>Register</h1>
-					<div class="mb-3">
-						<label for="exampleInputFirstName1" class="form-label">First Name</label>
-						<input type="text" class="form-control" id="exampleInputFirstName1">
+				<div class="d-flex flex-column" style="border-top: 2px solid lightgray;">
+					<div class="h1 bold mt-2">Register</div>
+					<div class="mb-2">
+						<label for="registerName" class="form-label">Name</label>
+						<input type="text" class="form-control" id=">registerName" placeholder="Name">
 					</div>
-					<div class="mb-3">
-						<label for="exampleInputLastName1" class="form-label">First Name</label>
-						<input type="text" class="form-control" id="exampleInputLastName1">
+					<div class="mb-2">
+						<label for="registerLastname" class="form-label">Lastname</label>
+						<input type="text" class="form-control" id=">registerLastname" placeholder="Lastname">
 					</div>
-					<div class="mb-3">
-						<label for="exampleInputEmail1" class="form-label">Email address</label>
-						<input type="email" class="form-control" id="exampleInputEmail1">
+					<div class="mb-2">
+						<label for="registerEmail" class="form-label">E-mail</label>
+						<input type="email" class="form-control" id="registerEmail" placeholder="E-Mail">
 					</div>
-					<div class="mb-3">
-						<label for="exampleInputPassword1" class="form-label">Password</label>
-						<input type="password" class="form-control" id="exampleInputPassword1">
+					<div class="mb-4">
+						<label for="registerPassword" class="form-label">Password</label>
+						<input type="password" class="form-control" id="registerPassword" placeholder="Password">
 					</div>
-					<div class="d-grid gap-2 col-12 mx-auto" id="btn-register">
+					<div class="d-flex flex-column col-12 mt-2" id="btn-register">
 						<button type="submit" class="btn btn-secondary">Register</button>
 					</div>
-					<div class="col align-self-end" id="register-text">
+					<div class="col" id="register-text">
 					<label style="font-size: small; color:grey">
 						Read our
 						<a style="color: #49416D;">terms</a>
@@ -81,18 +81,13 @@ import {RouterLink} from 'vue-router'
 }
 
 #register-area{
-	height: 75vh;
+	padding: 2%;
 	background-color: white;
 }
 
 #register-logo{
 	text-align: center;
-	margin-top: 0px;
-	margin-bottom: 10px;
-}
-
-#btn-register{
-	margin-top: 30px;
+	padding-bottom: 5%;
 }
 
 #first-row{

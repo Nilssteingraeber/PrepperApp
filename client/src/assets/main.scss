@@ -39,34 +39,22 @@ $table-striped-bg: #49416d36;
 	color: $black;
 }
 
-//COVER BG
-.img{
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center center;
-}
 .meals-container {
 	overflow-y: scroll;
 	height: 100%;
-	width: 50%;
-	float: right;
 	margin: 0px auto; 
 	display: inline-block; 
 	padding: 0px;
 	border-bottom-right-radius: 3px;
 	border-top-right-radius: 3px;
 	padding: 0;
-	@include media-breakpoint-down(sm){
-		width: 100%;
-		height: auto;
-	}
+	
 }
 .meals-container:after{
 	clear:both;
 }
 .meal-card {
 	padding: 20px 0;
-	max-width: 100%;
 	display: block;
 	background: #fff;
 	border: none !important;
@@ -88,12 +76,10 @@ $table-striped-bg: #49416d36;
 	font-size: 1rem;
 }
 .meal-mealtime {
-	color: $secondary;
-	text-align: right;
+	color: $primary;
 }
 .meal {
-	padding-right:0;
-	text-align: center;
+	text-align: right;
 }
 .meal-cancelled {
 	color: $secondary;
@@ -133,7 +119,6 @@ $table-striped-bg: #49416d36;
 }
 .left-button, .right-button { 
 	cursor: pointer;
-	width:28px; 
 	text-align:center; 
 	position:absolute; 
 	color: $secondary !important;

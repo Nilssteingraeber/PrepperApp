@@ -12003,29 +12003,15 @@ textarea.form-control-lg {
   color: #000;
 }
 
-.img {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
 .meals-container {
   overflow-y: scroll;
   height: 100%;
-  width: 50%;
-  float: right;
   margin: 0px auto;
   display: inline-block;
   padding: 0px;
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
   padding: 0;
-}
-@media (max-width: 575.98px) {
-  .meals-container {
-    width: 100%;
-    height: auto;
-  }
 }
 
 .meals-container:after {
@@ -12034,7 +12020,6 @@ textarea.form-control-lg {
 
 .meal-card {
   padding: 20px 0;
-  max-width: 100%;
   display: block;
   background: #fff;
   border: none !important;
@@ -12060,13 +12045,11 @@ textarea.form-control-lg {
 }
 
 .meal-mealtime {
-  color: #49416D;
-  text-align: right;
+  color: #39B49F;
 }
 
 .meal {
-  padding-right: 0;
-  text-align: center;
+  text-align: right;
 }
 
 .meal-cancelled {
@@ -12115,7 +12098,6 @@ textarea.form-control-lg {
 
 .left-button, .right-button {
   cursor: pointer;
-  width: 28px;
   text-align: center;
   position: absolute;
   color: #49416D !important;
