@@ -4,13 +4,8 @@ import Header from './header/HeaderProfile.vue'
 import ProductCard from '@/views/products/ProductCard.vue'
 
 const productsLists = []
-//import.meta.env.VITE_SERVER_URL + import.meta.env.VITE_SERVER_API_PATH
 
-
-
-
-
-const url = "http://localhost:3001" + "/api"
+const url = import.meta.env.VITE_SERVER_URL + import.meta.env.VITE_SERVER_API_PATH
 const array: string[] = []
 const data = reactive({ list: array })
 
