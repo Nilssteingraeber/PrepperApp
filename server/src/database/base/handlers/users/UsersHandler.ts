@@ -5,7 +5,6 @@ export const registerUser = async (data: User): Promise<any> => {
   
 
   const usernameExist = await UserModel.findOne({"email": data.email})
-  console.log("Exist?: " + usernameExist)
 
   if (usernameExist !== null) {
     return {"status": 422, "ok": false}

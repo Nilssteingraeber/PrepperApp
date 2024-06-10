@@ -7,6 +7,7 @@ import { defineConfig, loadEnv } from 'vite';
 export default defineConfig((env) => {
   const envars = loadEnv(env.mode, './');
 
+  const serverPort = 5173
   const serverURL = new URL(
     envars.VITE_SERVER_URL ?? '<http://localhost:3001>'
   );
@@ -15,9 +16,11 @@ export default defineConfig((env) => {
   return {
     envDir: './',
 
+    // http://localhost:5173/api/static/items/Milk.jpg
     // make the API path globally available in the client
     define: {
       __API_PATH__: JSON.stringify(serverAPIPath),
+      __STATIC_DATA_PATH__: JSON.stringify("http://localhost:" + serverPort + "/api")
     },
 
     plugins: [vue()],
@@ -28,7 +31,7 @@ export default defineConfig((env) => {
     },
 
     server: {
-      port: 5173,
+      port: serverPort,
       proxy: {
         // proxy requests with the API path to the server
         // <http://localhost:5173/api> -> <http://localhost:3001/api>

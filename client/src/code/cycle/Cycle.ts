@@ -11,53 +11,68 @@ export enum CycleType {
 
 export class Cycle {
     
-    cycleType: CycleType;
-    startDate!: Date;
-    endDate!: Date;
+    cycleType = CycleType.ONE_WEEK;
+    startDate = new Date();
+    endDate = new Date();
+    timeStamp = new Date();
 
-    constructor(cycleType = CycleType.ONE_WEEK, startDate?: Date, endDate?: Date) {
-        this.cycleType = cycleType;
+    selectedIndex = 0
 
-        if(!startDate) {
-            this.startDate = new Date();
-            this.endDate = addDays(this.startDate, 7);
+    constructor(cycleType = CycleType.ONE_WEEK, startDate = new Date(), endDate = new Date()) {
+        this.cycleType = cycleType
+        this.startDate = startDate,
+        this.endDate = endDate
+    }
+
+    getCyclePretty = (left: boolean) => {
+
+        const startDateString = formatDate(this.startDate ?? new Date(), "eeee, dd.LL")
+        const endDateString = formatDate(this.endDate ?? new Date(), "eeee, dd.LL")
+        if (left) {
+            return startDateString
+        } else {
+            return endDateString
         }
+        return startDateString + "  " + endDateString
     }
 
-    getCyclePretty(){       
-        const startDateString = formatDate(this.startDate, "eeee, dd.LL");
-        const endDateString = formatDate(this.endDate, "eeee, dd.LL");
-        (document.getElementById("date-area") as HTMLInputElement).value = startDateString + " to " + endDateString ;
-    }
+    nextCycle = () => {
 
-    goNextCycle = () => {
-        console.log(this.startDate)
+        let newStart = new Date()
+        let newEnd = new Date()
+
         switch(this.cycleType) {
             case CycleType.ONE_WEEK: {
-                this.startDate = addDays(this.startDate, 7)
-                this.endDate = addDays(this.endDate, 7)
-                this.getCyclePretty()
-            }  break 
-            case CycleType.TWO_WEEKS:break
-            case CycleType.THREE_WEEKS:break
-            case CycleType.ONE_MONTH:break
-            case CycleType.ONE_YEAR:break
+                newStart = structuredClone(addDays(this.startDate, 7))
+                newEnd = structuredClone(addDays(this.endDate, 7))
+                break
+            }
+            case CycleType.TWO_WEEKS:
+            case CycleType.THREE_WEEKS:
+            case CycleType.ONE_MONTH:
+            case CycleType.ONE_YEAR:
         }
+
+        return new Cycle(this.cycleType, newStart, newEnd);
     }
 
-    goPreviousCycle = () => {
+    previousCycle = () => {
 
+        let newStart = new Date()
+        let newEnd = new Date()
         
         switch(this.cycleType) {
             case CycleType.ONE_WEEK: {
-                this.startDate = subDays(this.startDate, 7)
-                this.endDate = subDays(this.endDate, 7)
-                this.getCyclePretty()
-            }break
-            case CycleType.TWO_WEEKS:break
-            case CycleType.THREE_WEEKS:break
-            case CycleType.ONE_MONTH:break
-            case CycleType.ONE_YEAR:break
+                newStart = structuredClone(subDays(this.startDate, 7))
+                newEnd = structuredClone(subDays(this.endDate, 7))
+                break
+            }
+            case CycleType.TWO_WEEKS:
+            case CycleType.THREE_WEEKS:
+            case CycleType.ONE_MONTH:
+            case CycleType.ONE_YEAR:
         }
+
+        return new Cycle(this.cycleType, newStart, newEnd);
     }
 }

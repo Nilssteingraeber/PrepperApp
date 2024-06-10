@@ -1,23 +1,29 @@
 import { Express } from "express";
 import UsersRoute from "./users/UsersRoute";
 import { RequestType } from "./ApiRoute";
+import RecipesRoute from "./recipes/RecipesRoute";
+import ItemsRoute from "./items/ItemsRoute";
 
 class REST_Router {
     constructor(expressApp: Express) {
         const usersRoute = new UsersRoute();
-        const allUpperRoutes = [usersRoute];
+        const recipesRoutes = new RecipesRoute();
+        const itemsRoutes = new ItemsRoute();
+
+        const allUpperRoutes = [usersRoute, recipesRoutes, itemsRoutes];
 
         this.init(allUpperRoutes, expressApp);
     }
 
     init = (upperRoutes: UsersRoute[], expressApp: Express) => {
+        console.log("*** Routes ***")
         upperRoutes.forEach((upperRoute) => {
             upperRoute.allRoutes.forEach((subRoute) => {
                 console.log(
                     "Connecting " +
                     "[" +
                     subRoute.type +
-                    "] " +
+                    "]\t" +
                     "/api" +
                     subRoute.routePath
                 );
@@ -44,6 +50,7 @@ class REST_Router {
                         break;
                 }
             });
+            console.log("--------------------------------------")
         });
     };
 }

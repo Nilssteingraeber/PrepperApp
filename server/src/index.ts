@@ -5,6 +5,7 @@ import UsersRoute from './api/users/UsersRoute';
 import ApiRoute from './api/ApiRoute';
 import REST_Router from './api/REST_Router';
 import { DatabaseConnection } from './database/base/DatabaseConnection';
+import path, { dirname } from 'path';
 
 const app = express();
 
@@ -16,16 +17,15 @@ const PORT = process.env.PORT || 3001;
 
 const restRouter = new REST_Router(app)
 
-app.get("/hallo", (request, response) => {
-  response.json({"type": "get"}).status(200)
-})
-
-app.post("/hallo", (request, response) => {
-  response.json({"type": "post"}).status(200)
-})
-
 DatabaseConnection()
+
+console.log(path.resolve(__dirname + "/../src/public"))
+
+//http://localhost:3001/static/image.png
+app.use("/api/static", express.static(path.resolve(__dirname + "/../src/public")))
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+//console.log(app._router.stack)

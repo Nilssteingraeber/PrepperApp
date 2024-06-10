@@ -5,7 +5,6 @@ import CycleSelectionHeader from "./cycleHeader/CycleSelectionHeader.vue"
 import {Cycle, CycleType} from '@/code/cycle/Cycle';
 
 const currentCycle = new Cycle(CycleType.ONE_WEEK)
-console.log(currentCycle)
 
 $(function() {
 	$(".progress").each(function() {
