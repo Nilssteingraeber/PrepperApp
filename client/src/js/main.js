@@ -154,7 +154,6 @@ function new_meal(meal) {
         }
         else {
             $("#dialog").hide(250);
-            console.log("new meal");
             new_meal_json(name, mealtime, date, day);
             date.setDate(day);
             init_calendar(date);
@@ -179,7 +178,7 @@ function show_meals(meals, month, day) {
     // Clear the dates container
     $(".meals-container").empty();
     $(".meals-container").show(250);
-    console.log(meal_data["meals"]);
+    
     var meal_card = null;
     var meal_name = null;
     // If there are no meals for this date, notify the user

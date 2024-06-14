@@ -56,8 +56,8 @@ class CreateRandom extends ApiRoute {
 class GetList extends ApiRoute {
     handleRoute(_request: Request, response: Response): Promise<any> {
 
-        const param = new ListItemsParams(Number(_request.get("maxAmount")))
-        
+        const maxAmount = Number(_request.get("maxAmount"))
+        const param = new ListItemsParams(maxAmount)
         const found_items = listItems(param);
         
         found_items.then((result: any) => {

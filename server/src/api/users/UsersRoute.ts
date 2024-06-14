@@ -8,6 +8,7 @@ import { User } from "../../schemas/User";
 import mongoose, { Schema } from "mongoose";
 import { ListUsersParams } from "../../database/base/handlers/users/UsersRequestParameters";
 
+
 const path = "/users";
 
 const register = "/create";
@@ -23,7 +24,6 @@ class GetList extends ApiRoute {
     const found_users = listUsers({ username: "nils" } as ListUsersParams);
 
     found_users.then((result) => {
-      console.log(result);
       response.json(result).status(200);
     });
 

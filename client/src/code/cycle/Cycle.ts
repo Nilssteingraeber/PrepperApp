@@ -17,11 +17,32 @@ export class Cycle {
     timeStamp = new Date();
 
     selectedIndex = 0
+    previousSelectedIndex = 0
+    animationDirection = 0
 
     constructor(cycleType = CycleType.ONE_WEEK, startDate = new Date(), endDate = new Date()) {
         this.cycleType = cycleType
         this.startDate = startDate,
-        this.endDate = endDate
+        this.endDate = addDays(startDate, 7)
+    }
+
+    setIndex = (index: number) => {
+        this.previousSelectedIndex = this.selectedIndex
+        this.selectedIndex = index;
+
+        if(this.previousSelectedIndex > this.selectedIndex) {
+            this.animationDirection = 1
+        } else {
+            this.animationDirection = 0
+        }
+    }
+
+    getDateStringAtIndex = (index: number) => {
+        return formatDate(this.getDayAtIndex(index), "EEEEEE")
+    }
+
+    getDayAtIndex = (index: number) => {
+        return addDays(this.startDate, index)
     }
 
     getCyclePretty = (left: boolean) => {
@@ -38,8 +59,8 @@ export class Cycle {
 
     nextCycle = () => {
 
-        let newStart = new Date()
-        let newEnd = new Date()
+        let newStart
+        let newEnd
 
         switch(this.cycleType) {
             case CycleType.ONE_WEEK: {

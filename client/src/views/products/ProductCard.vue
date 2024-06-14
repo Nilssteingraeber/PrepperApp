@@ -20,18 +20,19 @@ const productImageUrl = __STATIC_DATA_PATH__ + props.item["pictureUrl"]
 		<div class="col-4" style="padding-right: 20%;">
 			<img class="product-image rounded" :src="productImageUrl" />
 		</div>
-		<div class="col-8" style="text-align:left; padding-right: 10%;">
+		<div class="col-6" style="text-align:left; padding-right: 10%;">
 			<div class="row">
 				<div class="col-12" style="margin-bottom: 0; padding-bottom: 0;">
 					<label style="font-size: x-large;" class="m-2">{{ productName }}</label>
 				</div>
 				<div class="col-3">
-					<label style="font-size: larger; text-align: left" class="m-2">{{ productAmount }}</label>
-				</div>
-				<div class="col-4" style="text-align: left;">
-					<label style="font-size: large; text-align: left;" class="m-2">{{ productAmountText }}</label>
+					<label style="font-size: larger; text-align: left" class="m-2">{{ productAmount }} {{ productAmountText }}</label>
 				</div>
 			</div>
+		</div>
+		<div class="col-2" style="text-align: right;">
+			<button class="btn btn-outline-secondary m-2" type="button">Add to today</button>
+			<input type="number" min="12" max="5000" step="12" class="btn-outline-secondary m-2">
 		</div>
 	</div>
 
