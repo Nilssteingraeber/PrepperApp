@@ -3,7 +3,7 @@ import { reactive, ref } from 'vue'
 import Header from './header/HeaderProfile.vue'
 import RecipeCard from './Recipes/RecipeCard.vue'
 import { Cycle, CycleType } from '@/code/cycle/Cycle'
-import CycleSelectionHeader from './cycleHeader/CycleSelectionHeader.vue'
+import CycleSelectionHeader from './CycleHeader/CycleSelectionHeader.vue'
 
 const array: string[] = []
 
@@ -28,7 +28,7 @@ const list = [
 			<Header></Header>
 		</div>
 		<div class="d-flex flex-row">
-			<div class="col-2" id="sidebar">
+			<div class="col-2 stickysidebar" id="sidebar">
 				<div class="vstack gap-2 m-2">
 					<a class="p-3 rounded" href="/profile" id="profile-link">
 						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black"
@@ -78,7 +78,6 @@ const list = [
 </template>
 
 <style>
-
 .puffer {
 	margin: auto;
 	max-height: 50px;
@@ -88,6 +87,12 @@ const list = [
 	position: sticky;
 	top: 7%;
 	z-index: 101;
+}
+
+.stickysidebar {
+	position: sticky;
+	top: 6.5%;
+	z-index: 100;
 }
 
 .stickybar {

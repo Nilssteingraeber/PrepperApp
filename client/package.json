@@ -21,11 +21,12 @@
     "bootstrap-icons": "^1.11.3",
     "date-fns": "^3.6.0",
     "express": "^4.19.2",
+    "feather-icons": "^4.29.2",
     "jquery": "^3.7.1",
     "material-design-icons-iconfont": "^6.7.0",
     "oh-vue-icons": "^1.0.0-rc3",
     "popper.js": "^1.16.1",
-    "vue": "^3.4.27",
+    "vue": "^3.4.29",
     "vue-feather": "^2.0.0",
     "vue-router": "^4.3.0",
     "vue-timer-hook": "^1.0.84"

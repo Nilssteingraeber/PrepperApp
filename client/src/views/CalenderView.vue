@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Header from './header/HeaderProfile.vue';
 import $ from 'jquery';
-import CycleSelectionHeader from "./cycleHeader/CycleSelectionHeader.vue"
+import CycleSelectionHeader from "./CycleHeader/CycleSelectionHeader.vue"
 import {Cycle, CycleType} from '@/code/cycle/Cycle';
 
 const currentCycle = new Cycle(CycleType.ONE_WEEK)

@@ -66,6 +66,7 @@ const productImageUrl = __STATIC_DATA_PATH__ + props.item["url"]
 						<div class="col-2">
 							<button class="btn btn-outline-secondary m-2 p-2" @click="props.addHandle()" type="button">
 								<OhVueIcon name="bi-basket-fill" scale="2" />
+								<OhVueIcon class="ghost" name="bi-basket-fill" scale="2" />
 							</button>
 						</div>
 					</div>
@@ -76,6 +77,30 @@ const productImageUrl = __STATIC_DATA_PATH__ + props.item["url"]
 </template>
 
 <style>
+@keyframes basket-move-ani {
+	0% {
+		transform: matrix(1, 0, 0, 1, -100%, 0);
+		opacity: 1.0;
+	}
+
+	100% {
+		transform: matrix(.1, 0, 0, .1, -100%, -500);
+		opacity: 0.0;
+	}
+}
+
+
+.ghost {
+
+	position: absolute;
+	transform: translate(-100%, 0px);
+
+	animation-name: basket-move-ani;
+	animation-duration: 1.0s;
+	animation-iteration-count: infinite;
+	animation-delay: 2s;
+}
+
 .recipe-left {
 	margin: 2%;
 	padding: 2%;
