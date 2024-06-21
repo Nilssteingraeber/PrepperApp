@@ -42,7 +42,7 @@ import {RouterLink} from 'vue-router'
 						<input type="password" class="form-control" id="registerPassword" placeholder="Password">
 					</div>
 					<div class="d-flex flex-column col-12 mt-2" id="btn-register">
-						<button type="submit" class="btn btn-secondary">Register</button>
+						<button type="button" class="btn btn-secondary">Register</button>
 					</div>
 					<div class="col" id="register-text">
 					<label style="font-size: small; color:grey">

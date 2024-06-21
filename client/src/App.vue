@@ -3,6 +3,7 @@ import { RouterView } from 'vue-router'
 import { ref } from 'vue'
 import { defineConfig, loadEnv } from 'vite';
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import router from './router';
 
 
 console.log(import.meta.env.VITE_SERVER_URL + import.meta.env.VITE_SERVER_API_PATH)

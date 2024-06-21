@@ -29,7 +29,8 @@
     "vue": "^3.4.29",
     "vue-feather": "^2.0.0",
     "vue-router": "^4.3.0",
-    "vue-timer-hook": "^1.0.84"
+    "vue-timer-hook": "^1.0.84",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.43.0",

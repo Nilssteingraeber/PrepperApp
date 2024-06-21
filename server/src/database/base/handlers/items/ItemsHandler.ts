@@ -9,9 +9,13 @@ export const listItems = async (searchParams: ListItemParams) => {
         return { "status": 422, "ok": false }
     }
 
-    return await ItemModel.find().limit(searchParams.maxAmount).then((result) => {
+    return await ItemModel.aggregate([{ $sample: { size: searchParams.maxAmount } }]).then((result) => {
         return { "status": 200, "ok": true, "data": result }
     })
+
+    // return await ItemModel.find().limit(searchParams.maxAmount).then((result) => {
+    //     return { "status": 200, "ok": true, "data": result }
+    // })
 }
 
 export const createRecipe = async (params: CreateRecipesParams) => {

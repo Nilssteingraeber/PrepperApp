@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { Cycle } from '@/code/cycle/Cycle'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import CycleDaySelectionBar from './CycleDaySelectionBar.vue'
 import VueFeather from 'vue-feather'
-
-const currentCycle = new Cycle()
-
-const props = defineProps(["cycle"])
-
-const reactiveData = reactive({ obj: new Cycle(), amountDays: 0, selectedDay: props.cycle.selectedIndex })
+import store from '@/store';
 
 const doInputAnimation = ref(false)
 const doSelectDayAnimation = ref(false)
@@ -28,8 +23,6 @@ function showDaySelectAnimation() {
   }, 299)
 }
 
-reactiveData.amountDays = 7
-
 defineExpose({
   nextCycle,
   previousCycle,
@@ -37,12 +30,13 @@ defineExpose({
 })
 
 function nextCycle() {
-  reactiveData.obj = reactiveData.obj.nextCycle()
+  store.commit("nextCycle")
 }
 
 function previousCycle() {
-  reactiveData.obj = reactiveData.obj.previousCycle()
+  store.commit("previousCycle")
 }
+
 </script>
 <template>
   <div>
@@ -56,34 +50,34 @@ function previousCycle() {
         <div class="d-flex flex-row align-items-center">
           <div class="col-auto d-none d-md-block">
             <div class="day-box">
-              <label class="text-responsive day-text" v-text="reactiveData.obj.getCyclePretty(true)"></label>
+              <label class="text-responsive day-text" v-text="store.state.cycleObject.getCyclePretty(true)"></label>
             </div>
           </div>
           <div class="col-auto">
-            <CycleDaySelectionBar :amount-days="reactiveData.amountDays" :selected="0" :cycle-object="currentCycle"
+            <CycleDaySelectionBar :amount-days="store.state.cycleObject.amountDays" :selected="0"
               :show-input-animation="doInputAnimation" :reff="showDaySelectAnimation"
               :do-select-day-animation="doSelectDayAnimation"></CycleDaySelectionBar>
           </div>
           <div class="col-auto d-none d-md-block">
-            <label class="day-box text-responsive" v-text="reactiveData.obj.getCyclePretty(false)"></label>
+            <label class="day-box text-responsive" v-text="store.state.cycleObject.getCyclePretty(false)"></label>
           </div>
         </div>
         <div class="d-flex flex-row align-items-center">
           <div class="col-12 d-block d-md-none">
             <div class="row align-items-between">
               <div class="col-5">
-                <label class="day-box" v-text="reactiveData.obj.getCyclePretty(true)"></label>
+                <label class="day-box" v-text="store.state.cycleObject.getCyclePretty(true)"></label>
               </div>
               <div class="col-2"></div>
               <div class="col-5">
-                <label class="day-box" v-text="reactiveData.obj.getCyclePretty(false)"></label>
+                <label class="day-box" v-text="store.state.cycleObject.getCyclePretty(false)"></label>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="col-auto shadow-box cycle-bar-floating-box bg-white right-btn" style="text-align: center">
-        <button @click="nextCycle" class="btn cycle-btn cycle-icon-r" type="button">
+        <button @click="nextCycle" class="btn cycle-btn cycle-icon-l" type="button">
           <vue-feather type="arrow-right" size="24" class="icon" />
         </button>
       </div>
@@ -126,7 +120,7 @@ function previousCycle() {
 }
 
 .shadow-box {
-  box-shadow: 1px 1px 15px rgb(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 10px rgb(0, 0, 0, 0.5);
   box-sizing: content-box;
 }
 

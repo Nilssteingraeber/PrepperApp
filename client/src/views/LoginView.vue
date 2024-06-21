@@ -68,7 +68,7 @@ import {RouterLink} from 'vue-router'
               </div>
 
             <div class="d-grid gap-2 col-12 mx-auto">
-              <button type="submit" class="btn btn-secondary">Sign In</button>
+              <button type="button" class="btn btn-secondary">Sign In</button>
             </div>
           </div>
         </div>

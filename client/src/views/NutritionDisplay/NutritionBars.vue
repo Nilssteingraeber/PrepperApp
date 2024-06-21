@@ -31,7 +31,7 @@ data.forEach((entry) => {
 </script>
 
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid p-2">
     <div v-for="item in classTexts" class="flex-row">
       <div class="d-flex fleq-row">
           <div class="bar-item-name col-2">

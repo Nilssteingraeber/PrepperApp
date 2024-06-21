@@ -11,7 +11,8 @@ const props = defineProps(['item', "addHandle"])
 
 
 const productName = props.item["name"]
-
+const subText = props.item["subtext"]
+const isVegan = props.item["isVegan"]
 const productImageUrl = __STATIC_DATA_PATH__ + props.item["url"]
 
 
@@ -34,23 +35,36 @@ const productImageUrl = __STATIC_DATA_PATH__ + props.item["url"]
 						<div class="col-10">
 							<label style="font-size: xx-large;" class="m-2">{{ productName }} </label>
 						</div>
-						<div class="col-2 m-2">
-							<div class="d-flex flex-row">
-								<div class="col-2 m-2">
-									<OhVueIcon name="bi-clipboard2-check" scale="2" class="m-2" />
-								</div>
-							</div>
+						<div v-if="isVegan" class="col-2 m-2">
+							<OhVueIcon name="ri-plant-fill" scale="2" color="darkgreen" class="m-2" />
 						</div>
+					</div>
+					<div class="d-flex flex-row">
+						<label style="font-size: large;" class="m-2">{{ subText }} </label>
 					</div>
 				</div>
 			</div>
 			<div class="d-flex flex-row">
 				<div class="col-12 shadow recipe-right bg-white rounded recipe-name-container" id="calender-calories">
-					<NutritionBars></NutritionBars>
-					<hr>
-					<OhVueIcon name="fa-cheese" scale="2" class="m-2" />
-					<OhVueIcon name="fa-bread-slice" scale="2" class="m-2" />
-					<OhVueIcon name="fa-plant" scale="2" class="m-2" />
+					<div class="row">
+						<div class="col-12">
+							<NutritionBars></NutritionBars>
+						</div>
+						<div class="col-12">
+							<hr>
+						</div>
+						<div class="col-12">
+							<div class="row">
+								<p class="m-1" style="font-size: small; text-align: center;">May contain:</p>
+							</div>
+							<div class="row">
+								<div class="col">
+									<OhVueIcon name="fa-cheese" scale="2" class="m-2" />
+									<OhVueIcon name="fa-bread-slice" scale="2" class="m-2" />
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="d-flex flex-row">

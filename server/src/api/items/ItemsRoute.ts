@@ -10,7 +10,7 @@ const random = "/random"
 const stat = "/static"
 
 class ItemsRoute {
-    allRoutes = [new GetList(), new CreateRandom(), new CreateStaticItems()];
+    allRoutes = [new GetList()];
 }
 
 class CreateStaticItems extends ApiRoute {

@@ -12,7 +12,7 @@ import { RouterLink } from 'vue-router'
 			<div class="col-6 align-self-center">
 				<form class="d-flex">
 					<input class="form-control pe-sm-5 m-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-secondary m-2" type="submit">Search</button>
+					<button class="btn btn-outline-secondary m-2" type="button">Search</button>
 				</form>
 			</div>
 			<div class="col-3" id="header-profile" style="text-align: right;">

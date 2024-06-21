@@ -21,12 +21,27 @@ export class Cycle {
     previousSelectedIndex = 0
     animationDirection = 0
 
-    constructor(cycleType = CycleType.ONE_WEEK, startDate = new Date()) {
 
+    constructor(cycleType = CycleType.ONE_WEEK, startDate = new Date()) {
+        console.log("HALLO\n\n")
         this.cycleType = cycleType
-        this.startDate = new Date(previousMonday(startDate).setHours(0, 0, 0, 0))
+
+        const currentlyMonday = getDay(startDate) == 1
+
+        if(currentlyMonday) {
+            this.startDate = new Date(startDate.setHours(0, 0, 0, 0))
+        } else {
+            this.startDate = new Date(previousMonday(startDate).setHours(0, 0, 0, 0))
+        }
+
         this.endDate = new Date(addDays(this.startDate, 6).setHours(23, 59, 59, 999))
         this.selectedIndex = Number(getDay(new Date())) - 1
+    }
+
+    getIsIndexOver = (): boolean => {
+        if (isWithinInterval(currentDate, { start: this.startDate, end: this.endDate })) {
+            return getDay(currentDate) - 1
+        }
     }
 
     getCurrentDateInWeek = (): number => {
@@ -34,9 +49,7 @@ export class Cycle {
         const currentDate = new Date()
 
         if (isWithinInterval(currentDate, { start: this.startDate, end: this.endDate })) {
-
-            console.log((((getDay(currentDate) - 1) % 7) + 7) % 7 + 1)
-            return getDay((((getDay(currentDate) - 1) % 7) + 7) % 7) + 1
+            return getDay(currentDate) - 1
         }
 
         return -1
@@ -63,8 +76,10 @@ export class Cycle {
 
     getCyclePretty = (left: boolean) => {
 
+
         const startDateString = formatDate(this.startDate ?? new Date(), "eeee, dd.LL")
         const endDateString = formatDate(this.endDate ?? new Date(), "eeee, dd.LL")
+
         if (left) {
             return startDateString
         } else {
@@ -75,8 +90,8 @@ export class Cycle {
 
     nextCycle = () => {
 
-        let newStart
-        let newEnd
+        let newStart = new Date()
+        let newEnd = new Date()
 
         switch (this.cycleType) {
             case CycleType.ONE_WEEK: {

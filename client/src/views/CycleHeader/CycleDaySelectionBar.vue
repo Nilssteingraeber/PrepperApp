@@ -3,31 +3,29 @@ import { Cycle, CycleType } from '@/code/cycle/Cycle'
 import { computed, reactive, ref, watch } from 'vue'
 
 import dash from '@/assets/dash.svg'
+import store from '@/store';
 
-const props = defineProps(['amountDays', 'selected', 'cycleObject', 'showInputAnimation', "reff", 'doSelectDayAnimation'])
+const props = defineProps(['amountDays', 'selected', 'showInputAnimation', "reff", 'doSelectDayAnimation'])
 const emit = defineEmits(['update:selected'])
 
-const currentState = reactive({ amount: 7, select: (props.cycleObject as Cycle).selectedIndex, showInputAnimation: props.showInputAnimation, aniDirection: 0 })
+const currentState = reactive({ amount: 7, select: store.state.cycleObject.selectedIndex, showInputAnimation: props.showInputAnimation, aniDirection: 0 })
 
 const currentData = computed(() => {
 
   const isWeekend = (index: number) => {
-    return (props.cycleObject as Cycle).getDayAtIndex(index).getDay() === 6 || (props.cycleObject as Cycle).getDayAtIndex(i).getDay() === 0
+    return (store.state.cycleObject as Cycle).getDayAtIndex(index).getDay() === 6 || (store.state.cycleObject as Cycle).getDayAtIndex(i).getDay() === 0
   }
 
   const isSunday = (index: number) => {
-    return (props.cycleObject as Cycle).getDayAtIndex(index).getDay() === 0
+    return (store.state.cycleObject as Cycle).getDayAtIndex(index).getDay() === 0
   }
-
-  (props.cycleObject as Cycle).setIndex(currentState.select)
-
 
   const b = []
 
-  for (var i = 0; i < currentState.amount; i++) {
+  for (var i = 0; i < 7; i++) {
     const weekend = isWeekend(i)
-    const isSelectedDay = i === currentState.select
-    const dayOfWeek = (props.cycleObject as Cycle).getCurrentDateInWeek()
+    const isSelectedDay = i === store.state.cycleObject.selectedIndex
+    const dayOfWeek = (store.state.cycleObject as Cycle).getCurrentDateInWeek()
 
     let classText = isSelectedDay ? 'day-item day-selected ' : 'day-item'
     let classTextNoti = isSelectedDay ? " day-notification-active" : " day-notification"
@@ -35,17 +33,15 @@ const currentData = computed(() => {
     classText += isSunday(i) ? ' sunday' : ''
     classText += weekend ? ' weekend' : ''
     classText += props.showInputAnimation && isSelectedDay ? ' input-cycle-ani ' : ''
-    classText += props.doSelectDayAnimation && isSelectedDay ? props.cycleObject.animationDirection ? ' animation-select-right' : ' animation-select-left' : ''
+    classText += store.state.showCycleSelectAni && isSelectedDay ? store.state.cycleObject.animationDirection ? ' animation-select-right' : ' animation-select-left' : ''
 
-    console.log(classText)
-
-    if (dayOfWeek + 1 === i)
+    if (dayOfWeek === i)
       classText += ' day-of-week'
 
     b.push({
       id: i,
       className: classText,
-      dayName: (props.cycleObject as Cycle).getDateStringAtIndex(i),
+      dayName: (store.state.cycleObject as Cycle).getDateStringAtIndex(i),
       isSelected: isSelectedDay,
       classNameNoti: classTextNoti
     })
@@ -54,8 +50,7 @@ const currentData = computed(() => {
 })
 
 const handleClick = (id: number) => {
-  currentState.select = id
-  props.reff()
+  store.commit("setSelectedCycleIndex", id)
 }
 </script>
 
