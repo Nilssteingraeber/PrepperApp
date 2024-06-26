@@ -1,0 +1,151 @@
+.roboto-thin {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.roboto-light {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.roboto-regular {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-medium {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.roboto-bold {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.roboto-black {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.roboto-thin-italic {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.roboto-light-italic {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.roboto-regular-italic {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.roboto-medium-italic {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold-italic {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.roboto-black-italic {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+body {
+  background-color: #fbfbfb;
+  font-family: 'Roboto', sans-serif;
+}
+
+.material-symbols-rounded {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+:root {
+  --bs-primary: #00b489;
+
+  --bs-body-color: #4f4f4f;
+  --bs-box-shadow-color: #000;
+  --bs-box-shadow-color-rgb: 0, 0, 0;
+  --bs-border-color: #e0e0e0;
+}
+
+.list-group {
+  --bs-list-group-color: var(--bs-body-color);
+  --bs-list-group-bg: transparent;
+  --bs-list-group-border-color: var(--bs-border-color);
+  --bs-list-group-border-radius: 0.5rem;
+  --bs-list-group-item-padding-x: 1.5rem;
+  --bs-list-group-action-color: rgba(79, 79, 79, 0.75);
+  --bs-list-group-action-hover-color: #000;
+  --bs-list-group-action-hover-bg: #fbfbfb;
+  --bs-list-group-active-color: #fff;
+  --bs-list-group-active-bg: var(--bs-primary);
+  --bs-list-group-active-border-color: var(--bs-primary);
+}
+
+.list-group-item {
+  color: #4f4f73;
+}
+
+.btn {
+  --bs-btn-padding-x: 1.5rem;
+  --bs-btn-border-width: 0;
+  --bs-btn-border-color: none;
+  --bs-btn-border-radius: 0.25rem;
+  --bs-btn-font-size: 0.75rem;
+  --bs-btn-font-weight: 500;
+  --bs-btn-box-shadow: 0 4px 9px -4px rgba(var(--bs-box-shadow-color-rgb), 0.35);
+  padding-top: 0.625rem;
+  padding-bottom: 0.5rem;
+  text-transform: uppercase;
+  vertical-align: bottom;
+  border: 0;
+  border-radius: var(--bs-btn-border-radius);
+  box-shadow: var(--bs-btn-box-shadow);
+  transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--bs-primary);
+  --bs-btn-color: #fff;
+  --bs-btn-box-shadow: 0 4px 9px -4px #00846d;
+  --bs-btn-hover-bg: #00846d;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-border-color: #007661;
+  --bs-btn-focus-shadow-rgb: 88, 134, 210;
+  --bs-btn-focus-bg: #00846d;
+  --bs-btn-focus-color: #fff;
+  --bs-btn-active-bg: #007661;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-border-color: #006b5b;
+  --bs-btn-active-shadow: 0 8px 9px -4px rgba(var(--bs-box-shadow-color-rgb), 0.15),
+    0 4px 18px 0 rgba(var(--bs-box-shadow-color-rgb), 0.1);
+  --bs-btn-active-color: #fff;
+}
