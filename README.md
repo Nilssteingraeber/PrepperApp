@@ -10,11 +10,29 @@ This template should help get you started developing with Vue 3 in Vite.
 
 TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Needed instalations 
+- WSL for windows
+- Node js
+- npm
+- vue js
+- IDE Setup 
+- Access to Github 
+- Git
 
 ## Project Setup
+You first have to clone the repository into your machine via this link https://github.com/Nilssteingraeber/PrepperApp
+
+Once it is cloned you can open the WSL terminal and change your folder to the folder where the cloned repository is:
+cd /cloned/repository/folder
+
+After that you should open the code with wsl using this command:
+code . 
+
+This will open your IDE Setup, in our case we are using VSCode. Once vsCode is opened, open a new terminal and type this command:
+cd client 
+and then this :
+npm run dev 
+
 
 ```sh
 npm install
@@ -56,9 +74,3 @@ npm run test:e2e -- --debug
 ```sh
 npm run lint
 ```
-
-
-
-
-
-Install MongoDB https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
