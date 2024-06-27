@@ -18,13 +18,7 @@
         <tr v-for="(week, index) in calendar" :key="index">
           <td>{{ weekNumber(week[0].date) }}</td>
           <td v-for="day in week" :key="day.date">
-            <button
-              @click="handleDayClick(day)"
-              :class="{ selected: day.date.isSame(selectedDate, 'day') }"
-              class="btnDay"
-            >
-              {{ day.day }}
-            </button>
+            <button @click="handleDayClick(day)" class="btnDay">{{ day.day }}</button>
           </td>
         </tr>
       </tbody>
@@ -35,15 +29,8 @@
 <script>
 import moment from 'moment'
 import 'moment/locale/de'
-import { inject } from 'vue'
 
 export default {
-  setup() {
-    const selectedDate = inject('selectedDate')
-    const setSelectedDate = inject('setSelectedDate')
-
-    return { selectedDate, setSelectedDate }
-  },
   data() {
     return {
       currentMonth: moment(),
@@ -88,15 +75,14 @@ export default {
       this.calendar = calendar
     },
     handleDayClick(day) {
-      this.setSelectedDate(day.date)
+      const { day: clickedDay, date } = day
+      const month = date.month() + 1 // Moment.js gibt Monate von 0 bis 11 zurück
+      const year = date.year()
+      console.log(`Clicked day: ${clickedDay}.${month}.${year}`)
     }
   },
   watch: {
     currentMonth() {
-      this.generateCalendar()
-    },
-    selectedDate(newValue) {
-      this.currentMonth = newValue.clone().startOf('month')
       this.generateCalendar()
     }
   },
@@ -132,10 +118,5 @@ td {
   background-color: transparent;
   border: none;
   cursor: pointer;
-}
-.btnDay.selected {
-  background-color: #007bff;
-  color: white;
-  border-radius: 4px;
 }
 </style>

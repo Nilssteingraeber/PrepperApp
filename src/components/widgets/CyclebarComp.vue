@@ -1,108 +1,88 @@
 <template>
-  <div class="floating-bar">
-    <table>
-      <thead>
-        <tr>
-          <th>KW</th>
-          <th v-for="day in daysOfWeek" :key="day">{{ day }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ weekNumber(week[0].date) }}</td>
-          <td v-for="day in week" :key="day.date">
-            <button
-              @click="handleDayClick(day)"
-              :class="{ selected: isSelected(day.date) }"
-              class="btnDay"
-            >
-              {{ day.day }}
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="bottom-bar">
+    <div class="week-view">
+      <div
+        v-for="day in currentWeek"
+        :key="day.date"
+        :class="{ selected: day.date.isSame(selectedDate, 'day') }"
+        @click="handleDayClick(day)"
+      >
+        {{ day.date.format('ddd DD') }}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import moment from 'moment'
-import 'moment/locale/de'
+import { inject } from 'vue'
 
 export default {
-  props: ['selectedDate'],
+  setup() {
+    const selectedDate = inject('selectedDate')
+    const setSelectedDate = inject('setSelectedDate')
+
+    return { selectedDate, setSelectedDate }
+  },
   data() {
     return {
-      daysOfWeek: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
-      week: [] // Die Woche wird im Watch-Hook berechnet
-    }
-  },
-  computed: {
-    weekNumber(date) {
-      return date.isoWeek()
+      currentWeek: this.getWeekDays(this.selectedDate)
     }
   },
   methods: {
-    generateWeek() {
-      const startOfWeek = this.selectedDate.clone().startOf('isoWeek')
-      const week = []
-      let date = startOfWeek.clone()
+    getWeekDays(date) {
+      const startOfWeek = date.clone().startOf('isoWeek')
+      const endOfWeek = date.clone().endOf('isoWeek')
+      const days = []
+      let currentDay = startOfWeek
 
-      for (let i = 0; i < 7; i++) {
-        week.push({
-          day: date.date(),
-          date: date.clone()
-        })
-        date.add(1, 'day')
+      while (currentDay.isBefore(endOfWeek)) {
+        days.push({ date: currentDay.clone() })
+        currentDay.add(1, 'day')
       }
-      this.week = week
+
+      return days
     },
     handleDayClick(day) {
-      this.$emit('day-selected', day.date)
-    },
-    isSelected(date) {
-      return date.isSame(this.selectedDate, 'day')
+      this.setSelectedDate(day.date)
     }
   },
   watch: {
-    selectedDate() {
-      this.generateWeek()
+    selectedDate(newValue) {
+      this.currentWeek = this.getWeekDays(newValue)
     }
-  },
-  mounted() {
-    this.generateWeek()
   }
 }
 </script>
 
 <style scoped>
-.floating-bar {
-  width: 100%;
-  margin: 0 auto;
-  text-align: center;
+.bottom-bar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: white;
-  border-top: 1px solid #000;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th,
-td {
-  border: 1px solid #000;
+  background: #fff;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.btnDay {
-  background-color: transparent;
-  border: none;
+
+.week-view {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.week-view div {
+  padding: 10px;
   cursor: pointer;
 }
-.selected {
-  background-color: yellow;
+
+.week-view .selected {
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
 }
 </style>

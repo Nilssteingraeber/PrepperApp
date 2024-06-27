@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import NavbarComp from './components/widgets/NavbarComp.vue'
+import CyclebarComp from './components/widgets/CyclebarComp.vue'
+
+import { provide } from 'vue'
+import { useDateStore } from './stores/store'
+
+const { selectedDate, setSelectedDate } = useDateStore()
+
+provide('selectedDate', selectedDate)
+provide('setSelectedDate', setSelectedDate)
 
 const route = useRoute()
 
@@ -60,6 +69,7 @@ const isRouteActive = (routePath: string): boolean => {
   <main>
     <div class="container pt-4"><RouterView /></div>
   </main>
+  <CyclebarComp v-if="route.name !== 'calendar'" />
 </template>
 
 <style scoped>
