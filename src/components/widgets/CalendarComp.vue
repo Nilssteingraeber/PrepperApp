@@ -1,9 +1,11 @@
 <template>
   <div class="calendar">
     <div class="header">
-      <button @click="prevMonth" class="btn btn-primary">PREV</button>
       <h2>{{ currentMonth.format('MMMM YYYY') }}</h2>
-      <button @click="nextMonth" class="btn btn-primary">NXT</button>
+      <div>
+        <button @click="prevMonth" class="btn btn-primary me-2">PREV</button>
+        <button @click="nextMonth" class="btn btn-primary">NXT</button>
+      </div>
     </div>
     <table>
       <thead>

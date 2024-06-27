@@ -8,7 +8,8 @@ import CardComp from '@/components/widgets/CardComp.vue'
       <div class="col-sm-6 col-12 mb-4">
         <CardComp>
           <template #header>
-            <div class="card-header d-flex align-items-center py-3">
+            <div class="card-header d-flex align-items-center bg-second py-3">
+              <span class="material-symbols-rounded me-3"> shopping_cart </span>
               <h5 class="mb-0">
                 <strong>Grocery List</strong>
               </h5>
@@ -20,9 +21,9 @@ import CardComp from '@/components/widgets/CardComp.vue'
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Info</th>
                 </tr>
               </thead>
               <tbody>
@@ -39,7 +40,7 @@ import CardComp from '@/components/widgets/CardComp.vue'
                   </th>
                   <td>Mark</td>
                   <td>Otto</td>
-                  <td>@mdo</td>
+                  <td><span class="material-symbols-rounded"> info </span></td>
                 </tr>
                 <tr>
                   <th scope="row">
@@ -79,6 +80,7 @@ import CardComp from '@/components/widgets/CardComp.vue'
         <CardComp>
           <template #header>
             <div class="card-header d-flex align-items-center py-3">
+              <span class="material-symbols-rounded me-3 bg-second"> receipt_long </span>
               <h5 class="mb-0">
                 <strong>Recipes</strong>
               </h5>

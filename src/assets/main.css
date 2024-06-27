@@ -92,6 +92,10 @@ body {
   --bs-border-color: #e0e0e0;
 }
 
+.bg-second {
+  color: #462255;
+}
+
 .list-group {
   --bs-list-group-color: var(--bs-body-color);
   --bs-list-group-bg: transparent;

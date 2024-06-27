@@ -1,10 +1,8 @@
 <template>
   <div class="card">
     <slot name="header"></slot>
-
     <div class="card-body">
       <slot name="body"></slot>
-      <hr class="hr mt-5 cc" />
     </div>
   </div>
 </template>
@@ -27,9 +25,5 @@
     0 2px 15px -3px rgba(0, 0, 0, 0.07),
     0 10px 20px -2px rgba(0, 0, 0, 0.04);
   border: 0;
-  height: 80vh;
-  .cc {
-    color: #e0e0e0;
-  }
 }
 </style>

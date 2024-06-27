@@ -27,9 +27,9 @@ const isRouteActive = (routePath: string): boolean => {
               ><span class="material-symbols-rounded me-3"> dashboard </span>Dashboard</RouterLink
             >
             <RouterLink
-              to="/about"
+              to="/product"
               class="list-group-item list-group-item-action py-2 d-flex align-items-center"
-              :class="{ active: isRouteActive('/about') }"
+              :class="{ active: isRouteActive('/product') }"
               ><span class="material-symbols-rounded me-3"> inventory_2 </span>Products</RouterLink
             >
             <RouterLink

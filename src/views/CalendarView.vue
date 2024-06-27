@@ -4,7 +4,7 @@ import CardComp from '@/components/widgets/CardComp.vue'
 </script>
 
 <template>
-  <CardComp title="Calendar">
+  <CardComp>
     <template #body>
       <CalendarComp />
     </template>

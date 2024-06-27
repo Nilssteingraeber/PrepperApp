@@ -25,8 +25,8 @@
 <style scoped>
 .navbar {
   box-shadow:
-    0 4px 12px 0 rgba(var(--bs-box-shadow-color-rgb), 0.07),
-    0 2px 4px rgba(var(--bs-box-shadow-color-rgb), 0.05);
+    0 0px 3px 0 rgba(var(--bs-box-shadow-color-rgb), 0.07),
+    0 2px 2px 0 rgba(var(--bs-box-shadow-color-rgb), 0.04);
 
   padding-top: 0.5625rem;
   padding-left: 240px;
