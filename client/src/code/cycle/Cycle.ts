@@ -38,10 +38,22 @@ export class Cycle {
         this.selectedIndex = Number(getDay(new Date())) - 1
     }
 
-    getIsIndexOver = (): boolean => {
-        if (isWithinInterval(currentDate, { start: this.startDate, end: this.endDate })) {
-            return getDay(currentDate) - 1
+    getIsDateInCycle = (date: Date): boolean => {
+        return isWithinInterval(date, { start: this.startDate, end: this.endDate})
+    }
+
+    getIsIndexInPast = (index: number): boolean => {
+
+        if(index <= 0) {
+            return true;
         }
+
+        const currentDate = new Date()
+        if (isWithinInterval(currentDate, { start: this.startDate, end: addDays(this.startDate, index + 1) })) {
+            return false
+        }
+
+        return true
     }
 
     getCurrentDateInWeek = (): number => {
@@ -64,6 +76,18 @@ export class Cycle {
         } else {
             this.animationDirection = 0
         }
+    }
+
+    getSelectedDate = () => {
+        return this.getDayAtIndex(this.selectedIndex)
+    }
+
+    getSelectedDateStarting = () => {
+        return this.getDayAtIndex(this.selectedIndex).setHours(0, 0, 0, 0)
+    }
+
+    getSelectedDateEnding = () => {
+        return this.getDayAtIndex(this.selectedIndex).setHours(23, 59, 59, 999)
     }
 
     getDateStringAtIndex = (index: number) => {

@@ -7,13 +7,14 @@ import RecipesView from '@/views/RecipesView.vue'
 import ProductsView from '@/views/ProductsView.vue'
 import CalenderView from '@/views/CalenderView.vue'
 import SettingsView from '@/views/SettingsView.vue'
+import DashboardView from '@/views/Dashboard/DashboardView.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView,
+    path: '/dashboard',
+    name: 'dashboard',
+    component: DashboardView,
   },
   {
     path: '/login',

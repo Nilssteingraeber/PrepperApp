@@ -35,6 +35,8 @@ const currentData = computed(() => {
     classText += props.showInputAnimation && isSelectedDay ? ' input-cycle-ani ' : ''
     classText += store.state.showCycleSelectAni && isSelectedDay ? store.state.cycleObject.animationDirection ? ' animation-select-right' : ' animation-select-left' : ''
 
+    classText += (store.state.cycleObject as Cycle).getIsIndexInPast(i) && !isSelectedDay ? " day-is-in-past" : ''
+
     if (dayOfWeek === i)
       classText += ' day-of-week'
 
@@ -66,7 +68,7 @@ const handleClick = (id: number) => {
 
 <style>
 .day-item {
-  background-color: rgb(103, 177, 128, 0.66);
+  background-color: rgb(70, 34, 85);
   color: rgb(103, 177, 128, 0);
   border-style: none;
   min-width: 15px;
@@ -78,15 +80,21 @@ const handleClick = (id: number) => {
   transition: 0.2s;
 }
 
+.day-is-in-past {
+  /* background: linear-gradient(-45deg, rgb(70, 34, 85, 0.8) 46%, rgb(70, 34, 85,0.1) 50%, rgb(70, 34, 85, 0.8) 54%); */
+  background-color: rgb(70, 34, 85, 0.4);
+}
+
 .day-selected {
-  background-color: rgb(103, 177, 128) !important;
-  min-height: 25px;
+  background-color: rgb(0, 180, 137, 0.7);
+  min-height: 20px;
+  padding: 6px;
   border-color: rgb(103, 177, 128);
   color: rgb(0, 0, 0, 1) !important;
 }
 
 .day-item:hover {
-  background-color: rgb(103, 177, 128) !important;
+  background-color: rgb(0, 180, 137, 0.8) !important;
   border-color: rgb(103, 177, 128);
 }
 

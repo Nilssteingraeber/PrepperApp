@@ -4,6 +4,7 @@ import { computed, reactive, ref } from 'vue'
 import CycleDaySelectionBar from './CycleDaySelectionBar.vue'
 import VueFeather from 'vue-feather'
 import store from '@/store';
+import { OhVueIcon } from 'oh-vue-icons';
 
 const doInputAnimation = ref(false)
 const doSelectDayAnimation = ref(false)
@@ -41,9 +42,9 @@ function previousCycle() {
 <template>
   <div>
     <div class="d-flex flex-row justify-content-center">
-      <div class="col-auto shadow-box cycle-bar-floating-box bg-white left-btn" style="text-align: center">
-        <button @click="previousCycle" class="btn cycle-btn cycle-icon-l" type="button">
-          <vue-feather type="arrow-left" size="24" class="icon" />
+      <div class="col-auto align-self-center">
+        <button @click="previousCycle" class="btn" type="button">
+          <OhVueIcon name="md-navigatenext-round" flip="horizontal" class="cycle-bar-floating-box shadow-box rounded" scale="2"/>
         </button>
       </div>
       <div class="col-auto shadow-box cycle-bar-floating-box bg-white middle-btn" style="text-align: center">
@@ -76,9 +77,9 @@ function previousCycle() {
           </div>
         </div>
       </div>
-      <div class="col-auto shadow-box cycle-bar-floating-box bg-white right-btn" style="text-align: center">
-        <button @click="nextCycle" class="btn cycle-btn cycle-icon-l" type="button">
-          <vue-feather type="arrow-right" size="24" class="icon" />
+      <div class="col-auto align-self-center">
+        <button @click="nextCycle" class="btn" type="button">
+          <OhVueIcon name="md-navigatenext-round" class="cycle-bar-floating-box shadow-box rounded" scale="2"/>
         </button>
       </div>
     </div>
@@ -109,24 +110,14 @@ function previousCycle() {
   margin-left: 1.5%;
 }
 
-.cycle-btn {
-  width: 100%;
-  height: 100%;
-}
-
-.icon {
-  width: 100%;
-  height: 100%;
-}
-
 .shadow-box {
-  box-shadow: 1px 1px 10px rgb(0, 0, 0, 0.5);
-  box-sizing: content-box;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
 }
 
 .cycle-bar-floating-box {
-  padding: 10px;
-  margin-top: 1%;
+  padding-top: 0.5%;
+  padding-right: 1.5%;
+  padding-left: 1.5%;
   background: rgb(255, 255, 255);
 }
 
@@ -148,7 +139,6 @@ function previousCycle() {
 }
 
 .day-box {
-  margin: 2%;
   transition: 1s;
   box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 1) inset;
   z-index: 10;

@@ -32,6 +32,7 @@ export class Item {
 }
 
 const ItemSchema: Schema = new Schema({
+  _id: {type: String, required: false},
   product_name: { type: String, required: true },
   generic_name: { type: String, required: true },
   images: { type: String, required: true },

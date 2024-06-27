@@ -16,7 +16,6 @@ const isVegan = props.item["isVegan"]
 const productImageUrl = __STATIC_DATA_PATH__ + props.item["url"]
 
 
-
 </script>
 
 <template>

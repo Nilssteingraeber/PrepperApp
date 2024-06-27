@@ -3,14 +3,16 @@ import UsersRoute from "./users/UsersRoute";
 import { RequestType } from "./ApiRoute";
 import RecipesRoute from "./recipes/RecipesRoute";
 import ItemsRoute from "./items/ItemsRoute";
+import DataEntriesRoute from "./entries/DataEntriesRoute";
 
 class REST_Router {
     constructor(expressApp: Express) {
         const usersRoute = new UsersRoute();
         const recipesRoutes = new RecipesRoute();
         const itemsRoutes = new ItemsRoute();
+        const entriesRoutes = new DataEntriesRoute();
 
-        const allUpperRoutes = [usersRoute, recipesRoutes, itemsRoutes];
+        const allUpperRoutes = [usersRoute, recipesRoutes, itemsRoutes, entriesRoutes];
 
         this.init(allUpperRoutes, expressApp);
     }

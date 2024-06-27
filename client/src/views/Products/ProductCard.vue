@@ -5,9 +5,10 @@ import { Cycle, CycleType } from '@/code/cycle/Cycle'
 import '../../code/items/AmountType'
 import ItemAmountType, { getStringItemType } from '../../code/items/AmountType'
 import { OhVueIcon } from 'oh-vue-icons'
+import store from '@/store'
 const props = defineProps(['item'])
 
-const productName = props.item['product_name']
+const productName = String(props.item['product_name']).split("&quot;").join('""')
 const productAmount = props.item['amount']
 let productImageUrlWeb = props.item['code']
 
@@ -24,6 +25,22 @@ const productAmountText = getStringItemType(props.item['amountType'], productAmo
 const productImageUrl = __STATIC_DATA_PATH__ + props.item['pictureUrl']
 const amount = '500'
 const amountType = 'Grams'
+
+const sendAddRequest = () => {
+	const url = 'http://localhost:5173/api'
+
+	fetch("http://localhost:5173/api/entries/", {
+		method: "POST",
+		body: JSON.stringify({
+			item: props.item._id,
+			dates: [{startDate: store.state.cycleObject.getSelectedDateStarting(), endDate: store.state.cycleObject.getSelectedDateEnding()}]
+		}),
+		headers: {
+			"Content-type": "application/json; charset=UTF-8"
+		}
+		});
+}
+
 </script>
 <!-- <div class="col-1 product-name">
 	<OhVueIcon name="bi-bookmark-plus" scale="2" class="bookmark-no" />
@@ -59,21 +76,11 @@ const amountType = 'Grams'
 				<div class="col-6">
 					<div class="row planned-this-cycle m-0">
 						<div class="col-6" style="text-align: start;">
-							<div class="d-flex flex-row">
-								<div class="col-6">
+							<div class="d-flex flex-row text-center">
+								<!-- <div class="col-6" style="width: 100%; height: 100%; margin: 2%; margin-top: 15%;">
 									<OhVueIcon name="bi-calendar3-week" scale="1" class="current-cycle-planned" />
-								</div>
-								<div class="col-6">
-									<div class="already-planned-amount">10</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-6" style="text-align: start;">
-							<div class="d-flex flex-row">
-								<div class="col-6">
-									<OhVueIcon name="bi-calendar3-week" scale="1" class="current-cycle-planned" />
-								</div>
-								<div class="col-6">
+								</div> -->
+								<div class="col-12">
 									<div class="already-planned-amount">10</div>
 								</div>
 							</div>
@@ -81,8 +88,8 @@ const amountType = 'Grams'
 					</div>
 				</div>
 				<div class="col-6">
-					<button class="btn rounded bg-white buy-button" type="button">
-						<OhVueIcon name="bi-basket-fill" scale="2" class="" />
+					<button class="btn rounded bg-white buy-button " type="button" @click="sendAddRequest">
+						<OhVueIcon name="bi-basket-fill" scale="2" class="product-buy-icon" />
 					</button>
 				</div>
 			</div>
@@ -91,9 +98,14 @@ const amountType = 'Grams'
 </template>
 
 <style>
+
+.product-buy-icon {
+	width: 100%;
+	height: 100%;
+}
+
 .already-planned-amount {
-	align-content: center;
-	text-align: end;
+	text-align: start;
 	font-size: x-large;
 }
 
@@ -117,8 +129,8 @@ const amountType = 'Grams'
 .planned-this-cycle {
 	background-color: whitesmoke;
 	height: 100%;
-	border-radius: 6px;
-	box-shadow: 1px 1px 10px rgb(0, 0, 0, 1);
+	border-radius: 7px;
+	box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.4);
 }
 
 .button-row {
@@ -155,10 +167,10 @@ const amountType = 'Grams'
 .top-part {
 	transition: 0.5s;
 	background-color: rgb(255, 255, 255, 0.98);
-	border-radius: 15px;
+	border-radius: 10px;
 	border-bottom-left-radius: 2px;
 	border-bottom-right-radius: 2px;
-	box-shadow: 1px 1px 10px rgb(0, 0, -1, 0.3);
+	box-shadow: 0px 0px -1px rgb(5, 5, 5, 0.1);
 }
 
 .product-view-full {
@@ -175,7 +187,7 @@ const amountType = 'Grams'
 	width: 100%;
 	height: 100%;
 	border-radius: 15px;
-	box-shadow: 1px 1px 10px rgb(5, 5, 5, 0.4);
+	box-shadow: 0px 0px 5px rgb(5, 5, 5, 0.1);
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;

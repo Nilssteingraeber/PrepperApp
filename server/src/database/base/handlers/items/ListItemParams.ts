@@ -5,7 +5,7 @@ export default class ListItemsParams {
     constructor(maxAmount: number) {
         this.maxAmount = maxAmount
         
-        if(this.maxAmount < 0 || Number.isNaN(maxAmount) || this.maxAmount > 500) {
+        if(this.maxAmount < 0 || Number.isNaN(maxAmount) || this.maxAmount > 100) {
             this.maxAmount = 15
         }
     }

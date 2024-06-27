@@ -9,7 +9,7 @@ import {RouterLink} from 'vue-router'
 			<RouterLink to="/"><img
 				alt="Prepper logo"
 				class="logo"
-				src="@/assets/logo_prepper.svg"
+				src="@/assets/logo_prepper_icon.svg"
 				width="45"
 				height="45"
 			/>
