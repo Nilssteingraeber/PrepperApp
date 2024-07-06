@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { UserModel, User } from "../schemas/User";
 import { PlannerModel, Planner } from "../schemas/Planner";
-import { EntryModel, Entry } from "../schemas/Entry";
 import { MealModel, Meal } from "../schemas/Meal";
 import { RecipeModel, Recipe } from "../schemas/Recipe";
 
@@ -31,22 +30,22 @@ export const databaseHandler = async () => {
 
   const savedPlanner = await planner.save();
 
-  const entry = new EntryModel({
-    name: "Monday Plan",
-    timeframe: [new Date("2024-05-01T08:00:00Z"), new Date("2024-05-01T09:00:00Z")],
-    meals: [],
-    additionalIngredients: [
-      {
-        name: "Salt",
-        amount: 1.0,
-        price: 1.5,
-        calories: 0,
-        nutrients: [0, 0, 0, 0]
-      }
-    ]
-  });
+  // const entry = new EntryModel({
+  //   name: "Monday Plan",
+  //   timeframe: [new Date("2024-05-01T08:00:00Z"), new Date("2024-05-01T09:00:00Z")],
+  //   meals: [],
+  //   additionalIngredients: [
+  //     {
+  //       name: "Salt",
+  //       amount: 1.0,
+  //       price: 1.5,
+  //       calories: 0,
+  //       nutrients: [0, 0, 0, 0]
+  //     }
+  //   ]
+  // });
 
-  const savedEntry = await entry.save();
+  // const savedEntry = await entry.save();
 
   const meal = new MealModel({
     name: "Lunch Monday",
@@ -79,10 +78,10 @@ export const databaseHandler = async () => {
   const savedRecipe = await recipe.save();
 
   // Updating the documents
-  await UserModel.findByIdAndUpdate(savedUser._id, { $push: { planners: savedPlanner._id } });
-  await PlannerModel.findByIdAndUpdate(savedPlanner._id, { $push: { entries: savedEntry._id } });
-  await EntryModel.findByIdAndUpdate(savedEntry._id, { $push: { meals: savedMeal._id } });
-  await MealModel.findByIdAndUpdate(savedMeal._id, { $push: { recipes: savedRecipe._id } });
+  // await UserModel.findByIdAndUpdate(savedUser._id, { $push: { planners: savedPlanner._id } });
+  // await PlannerModel.findByIdAndUpdate(savedPlanner._id, { $push: { entries: savedEntry._id } });
+  // await EntryModel.findByIdAndUpdate(savedEntry._id, { $push: { meals: savedMeal._id } });
+  // await MealModel.findByIdAndUpdate(savedMeal._id, { $push: { recipes: savedRecipe._id } });
 
   console.log("Data inserted successfully");
 };

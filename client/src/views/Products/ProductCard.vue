@@ -6,18 +6,32 @@ import '../../code/items/AmountType'
 import ItemAmountType, { getStringItemType } from '../../code/items/AmountType'
 import { OhVueIcon } from 'oh-vue-icons'
 import store from '@/store'
+import type Recipe from '@/code/recipe/Recipe'
+import Ingredient from '@/code/ingredient/Ingredient'
+
+import InfoButton from '../ItemDisplay/InfoButton.vue'
+import type { Item } from '@/code/item/Item'
 const props = defineProps(['item'])
 
 const productName = String(props.item['product_name']).split("&quot;").join('""')
 const productAmount = props.item['amount']
 let productImageUrlWeb = props.item['code']
 
+const preffered_image = (props.item as Item).preffered_image ?? 1
+
 //401/235/911/4303/1.jpg
 let pPath = 'https://openfoodfacts-images.s3.eu-west-3.amazonaws.com/data/'
-pPath += String(productImageUrlWeb).substring(0, 3) + '/'
-pPath += String(productImageUrlWeb).substring(3, 6) + '/'
-pPath += String(productImageUrlWeb).substring(6, 9) + '/'
-pPath += String(productImageUrlWeb).substring(9) + '/1.jpg'
+if (String(productImageUrlWeb).length <= 8) {
+    pPath += String(productImageUrlWeb) + "/"
+} else {
+    pPath += String(productImageUrlWeb).substring(0, 3) + '/'
+    pPath += String(productImageUrlWeb).substring(3, 6) + '/'
+    pPath += String(productImageUrlWeb).substring(6, 9) + '/'
+    pPath += String(productImageUrlWeb).substring(9) + '/'
+}
+
+pPath += preffered_image.toString() + ".jpg"
+
 
 let style = 'background-image: url(' + pPath + ');'
 
@@ -27,32 +41,45 @@ const amount = '500'
 const amountType = 'Grams'
 
 const sendAddRequest = () => {
+
+	if(store.state.isRecipeItemSelectModeActive) {
+		(store.state.currentlyCreatingRecipe as Recipe).ingredients.push(new Ingredient((props.item as Item).code, 1, (props.item as Item).quantity_value ?? 1, "KG"))
+		store.commit("addItemInSelectionMode", props.item)
+		return;
+	}
+
+
 	const url = 'http://localhost:5173/api'
 
 	fetch("http://localhost:5173/api/entries/", {
 		method: "POST",
 		body: JSON.stringify({
-			item: props.item._id,
-			dates: [{startDate: store.state.cycleObject.getSelectedDateStarting(), endDate: store.state.cycleObject.getSelectedDateEnding()}]
+			item: props.item.code,
+			dates: [{startDate: store.state.cycleObject.getSelectedDateStarting(), endDate: store.state.cycleObject.getSelectedDateEnding()}],
+			status: ["0"]
 		}),
 		headers: {
 			"Content-type": "application/json; charset=UTF-8"
 		}
-		});
+	}).then((result) => {
+		if(result.ok) {
+			store.commit("playInputAni")
+		}
+	});
 }
 
 </script>
-<!-- <div class="col-1 product-name">
-	<OhVueIcon name="bi-bookmark-plus" scale="2" class="bookmark-no" />
-</div> -->
 <template>
 	<div class="product-card row" :style="style">
 		<div class="col-12 top-part">
 			<div class="row">
-				<div class="col-9">
+				<div>
+					<InfoButton :item="props.item"></InfoButton>
+				</div>
+				<div class="col-11">
 					<div class="row">
 						<div class="col-12 product-name">
-							<label style="font-size: x-large" class="m-2">{{ productName }}</label>
+							<label style="font-size: large" class="m-2">{{ productName }}</label>
 						</div>
 						<div class="col-12">
 							<div class="row quantity-part">
@@ -65,31 +92,17 @@ const sendAddRequest = () => {
 						</div>
 					</div>
 				</div>
-				<div class="col-3 text-center">
-					<OhVueIcon name="bi-bookmark-plus" scale="2" class="bookmark-no" />
-				</div>
 			</div>
 		</div>
 		<div class="col-12 middle-part"></div>
 		<div class="col-12 align-items-center">
-			<div class="row button-row">
+			<div class="row button-row justify-content-center align-items-center text-center">
 				<div class="col-6">
-					<div class="row planned-this-cycle m-0">
-						<div class="col-6" style="text-align: start;">
-							<div class="d-flex flex-row text-center">
-								<!-- <div class="col-6" style="width: 100%; height: 100%; margin: 2%; margin-top: 15%;">
-									<OhVueIcon name="bi-calendar3-week" scale="1" class="current-cycle-planned" />
-								</div> -->
-								<div class="col-12">
-									<div class="already-planned-amount">10</div>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 				<div class="col-6">
 					<button class="btn rounded bg-white buy-button " type="button" @click="sendAddRequest">
-						<OhVueIcon name="bi-basket-fill" scale="2" class="product-buy-icon" />
+						<OhVueIcon v-if="!store.state.isRecipeItemSelectModeActive" name="bi-basket-fill" scale="2" class="product-buy-icon" />
+						<OhVueIcon v-if="store.state.isRecipeItemSelectModeActive" class="sparkle-icon" name="io-sparkles" scale="1"/>
 					</button>
 				</div>
 			</div>
@@ -98,6 +111,10 @@ const sendAddRequest = () => {
 </template>
 
 <style>
+
+.sparkle-icon {
+	position: relative;
+}
 
 .product-buy-icon {
 	width: 100%;
@@ -179,7 +196,7 @@ const sendAddRequest = () => {
 
 .product-card:hover {
 	transform: scale(1.01, 1.01);
-	box-shadow: 1px 1px 10px rgb(0, 0, 0, 0.5);
+	box-shadow: 1px 1px 10px rgb(0, 0, 0, 0.1);
 }
 
 .product-card {
@@ -187,14 +204,14 @@ const sendAddRequest = () => {
 	width: 100%;
 	height: 100%;
 	border-radius: 15px;
-	box-shadow: 0px 0px 5px rgb(5, 5, 5, 0.1);
+	box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.1);
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
 }
 
 .buy-button:hover {
-	box-shadow: 3px 3px 10px rgb(0, 0, 0, 1);
+	box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.1);
 	color: rgb(73, 65, 109);
 	transform: scale(1.1);
 }
@@ -204,7 +221,7 @@ const sendAddRequest = () => {
 	height: 100%;
 	margin-left: 50%;
 	transition: 0.1s;
-	box-shadow: 1px 1px 10px rgb(0, 0, 0, 1);
+	box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.1);
 }
 
 .product-name {

@@ -2,6 +2,7 @@
 import { RouterLink } from 'vue-router'
 import CycleSelectionHeader from '../CycleHeader/CycleSelectionHeader.vue';
 import { OhVueIcon } from 'oh-vue-icons';
+import SearchBar from '../SearchBar/SearchBar.vue'
 </script>
 
 <template>
@@ -47,10 +48,7 @@ import { OhVueIcon } from 'oh-vue-icons';
 			</div>
 		</div>
 		<div class="col-5 align-self-center">
-			<form class="d-flex">
-				<input class="form-control pe-sm-5 m-2" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-secondary m-2" type="button"><OhVueIcon name="io-search-sharp"></OhVueIcon></button>
-			</form>
+			<SearchBar></SearchBar>
 		</div>
 	</div>
 </template>

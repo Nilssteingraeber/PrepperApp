@@ -11,6 +11,7 @@ const links = [
     { to: "/products", toFancy: "Products", isSelected: false, icon: "hi-solid-shopping-bag" },
     { to: "/recipes", toFancy: "Recipes", isSelected: false, icon: "bi-file-text-fill" },
     { to: "/calender", toFancy: "Calendar", isSelected: false, icon: "bi-calendar-fill" },
+    { to: "/itemreview", toFancy: "Item Review", isSelected: false, icon: "bi-calendar-fill" },
     { to: "/settings", toFancy: "Settings", isSelected: false, icon: "fa-cogs" }]
 
 </script>

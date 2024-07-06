@@ -17,8 +17,8 @@ export const listItems = async (searchParams: ListRecipesParams) => {
 
 export const createRecipe = async (params: CreateRecipesParams) => {
 
-    const data = new Recipe(params.description, params.ingredients, params.amountPeople, params.prepDuration)
-    const recipe = new RecipeModel(data);
-    const savedUser = await recipe.save()
-    return savedUser
+    // const data = new Recipe(params.description, params.ingredients, params.amountPeople, params.prepDuration)
+    // const recipe = new RecipeModel(data);
+    // const savedUser = await recipe.save()
+    return []
   }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="75.720367mm"
+   height="41.949829mm"
+   viewBox="0 0 75.720367 41.949829"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-83.62928,-97.740108)">
+    <g
+       id="g19"
+       transform="translate(31.869212,-36.30418)">
+      <g
+         id="g24"
+         transform="translate(28.326965,14.741584)">
+        <g
+           id="g27"
+           transform="matrix(1.7250711,0,0,1.7250711,-44.164903,-90.465159)">
+          <path
+             id="path20"
+             style="opacity:1;fill:#020202;stroke:#ffffff;stroke-width:4;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;paint-order:markers stroke fill"
+             d="m 37.355714,138.34113 h 1.33959 a 0.72262666,0.72262666 45 0 1 0.722627,0.72263 v 18.87248 a 0.72262666,0.72262666 135 0 1 -0.722627,0.72263 h -1.33959 a 0.72262666,0.72262666 45 0 1 -0.722627,-0.72263 v -18.87248 a 0.72262666,0.72262666 135 0 1 0.722627,-0.72263 z"
+             transform="translate(4.552548,-14.741584)" />
+          <path
+             id="path21"
+             style="fill:#020202;stroke:#ffffff;stroke-width:4;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+             d="m 37.355714,138.34113 h 1.33959 a 0.72262666,0.72262666 45 0 1 0.722627,0.72263 v 18.87248 a 0.72262666,0.72262666 135 0 1 -0.722627,0.72263 h -1.33959 a 0.72262666,0.72262666 45 0 1 -0.722627,-0.72263 v -18.87248 a 0.72262666,0.72262666 135 0 1 0.722627,-0.72263 z"
+             transform="translate(41.66176,-14.741584)" />
+          <g
+             id="g23"
+             transform="translate(0.19370769,-14.741584)">
+            <circle
+               style="opacity:1;fill:#020202;fill-opacity:1;stroke:#ffffff;stroke-width:4;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+               id="circle21"
+               cx="49.489285"
+               cy="148.5"
+               r="5.6364875" />
+            <circle
+               style="fill:#020202;fill-opacity:1;stroke:#ffffff;stroke-width:4;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+               id="circle22"
+               cx="72.388626"
+               cy="148.5"
+               r="5.6364875" />
+            <circle
+               style="fill:#020202;fill-opacity:1;stroke:#ffffff;stroke-width:4;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+               id="circle23"
+               cx="60.67437"
+               cy="148.5"
+               r="5.6364875" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

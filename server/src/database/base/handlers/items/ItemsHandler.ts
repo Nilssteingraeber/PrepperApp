@@ -2,6 +2,13 @@ import ListItemParams from "./ListItemParams"
 import { Item, ItemModel } from "../../../../schemas/Item";
 import { CreateRecipesParams } from "../recipes/RecipesCreateParameters";
 import { Recipe, RecipeModel } from "../../../../schemas/Recipe";
+import { ObjectId } from "mongoose";
+
+export const findSingleItem = async(id: string) => {
+    return await ItemModel.findOne({_id: id}).then((result) => {
+        return { "status": 200, "ok": true, "data": result } 
+    })
+}
 
 export const listItems = async (searchParams: ListItemParams) => {
 
@@ -18,10 +25,12 @@ export const listItems = async (searchParams: ListItemParams) => {
     // })
 }
 
+
+
 export const createRecipe = async (params: CreateRecipesParams) => {
 
-    const data = new Recipe(params.description, params.ingredients, params.amountPeople, params.prepDuration)
-    const recipe = new RecipeModel(data);
-    const savedUser = await recipe.save()
-    return savedUser
+    // const data = new Recipe(params.description, params.ingredients, params.amountPeople, params.prepDuration)
+    // const recipe = new RecipeModel(data);
+    // const savedUser = await recipe.save()
+    // return savedUser
 }

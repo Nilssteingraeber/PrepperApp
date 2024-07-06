@@ -23,7 +23,7 @@ export class Cycle {
 
 
     constructor(cycleType = CycleType.ONE_WEEK, startDate = new Date()) {
-        console.log("HALLO\n\n")
+
         this.cycleType = cycleType
 
         const currentlyMonday = getDay(startDate) == 1
@@ -36,6 +36,39 @@ export class Cycle {
 
         this.endDate = new Date(addDays(this.startDate, 6).setHours(23, 59, 59, 999))
         this.selectedIndex = Number(getDay(new Date())) - 1
+    }
+
+    getDaterangeTomorrowEnd = (): {"start": Date, "end": Date} => {
+
+        const start = new Date(addDays(this.getSelectedDate(), 1).setHours(0, 0, 0, 0))
+
+        if(!this.getIsDateInCycle(start)) {
+            return {start: new Date(0), end: new Date(2)}
+        }
+
+        const end = this.endDate;
+
+        return {start, end}
+    }
+
+    getDaterangeTodayEnd = (): {"start": Date, "end": Date} => {
+
+        const start = new Date(this.getSelectedDate().setHours(0, 0, 0, 0))
+        const end = this.endDate;
+
+        return {start, end}
+    }
+
+    getDaterangeToday = (): {"start": Date, "end": Date} => {
+
+        const start = new Date(this.getSelectedDate().setHours(0, 0, 0, 0))
+        const end = new Date(this.getSelectedDate().setHours(23, 59, 59, 999))
+
+        return {start, end}
+    }
+
+    getDaterangeFullCycle = (): {"start": Date, "end": Date} => {
+        return {"start": this.startDate, "end": this.endDate}
     }
 
     getIsDateInCycle = (date: Date): boolean => {

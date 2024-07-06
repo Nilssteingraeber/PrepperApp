@@ -2,7 +2,7 @@ export class ListRecipesParams {
 
     maxAmount: number
 
-    constructor(maxAmount: number) {
+    constructor(maxAmount = 100) {
         this.maxAmount = maxAmount
     }
 

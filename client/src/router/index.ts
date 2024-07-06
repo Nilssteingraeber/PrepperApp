@@ -8,7 +8,8 @@ import ProductsView from '@/views/ProductsView.vue'
 import CalenderView from '@/views/CalenderView.vue'
 import SettingsView from '@/views/SettingsView.vue'
 import DashboardView from '@/views/Dashboard/DashboardView.vue'
-
+import ItemReview from '@/views/ItemReview.vue'
+import RecipeCreator from '@/views/RecipeCreator/RecipeCreator.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -50,6 +51,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/settings',
     name: 'settings',
     component: SettingsView
+  },
+  {
+    path: '/itemreview',
+    name: 'itemreview',
+    component: ItemReview
+  },
+  {
+    path: '/recipecreator',
+    name: 'recipecreator',
+    component: RecipeCreator
   },
 ]
 

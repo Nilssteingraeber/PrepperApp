@@ -28,14 +28,14 @@ const currentData = computed(() => {
     const dayOfWeek = (store.state.cycleObject as Cycle).getCurrentDateInWeek()
 
     let classText = isSelectedDay ? 'day-item day-selected ' : 'day-item'
-    let classTextNoti = isSelectedDay ? " day-notification-active" : " day-notification"
+    let classTextNoti = isSelectedDay ? " day-notification-active " : " day-notification "
 
     classText += isSunday(i) ? ' sunday' : ''
     classText += weekend ? ' weekend' : ''
     classText += props.showInputAnimation && isSelectedDay ? ' input-cycle-ani ' : ''
-    classText += store.state.showCycleSelectAni && isSelectedDay ? store.state.cycleObject.animationDirection ? ' animation-select-right' : ' animation-select-left' : ''
+    classText += store.state.showCycleSelectAni && isSelectedDay ? store.state.cycleObject.animationDirection ? ' animation-select-right ' : ' animation-select-left ' : ''
 
-    classText += (store.state.cycleObject as Cycle).getIsIndexInPast(i) && !isSelectedDay ? " day-is-in-past" : ''
+    classText += (store.state.cycleObject as Cycle).getIsIndexInPast(i) && !isSelectedDay && !(dayOfWeek === i) ? " day-is-in-past " : ''
 
     if (dayOfWeek === i)
       classText += ' day-of-week'
@@ -52,6 +52,7 @@ const currentData = computed(() => {
 })
 
 const handleClick = (id: number) => {
+  store.commit("refreshCycleObject")
   store.commit("setSelectedCycleIndex", id)
 }
 </script>
@@ -78,6 +79,7 @@ const handleClick = (id: number) => {
   border-radius: 7px;
   opacity: 0.7;
   transition: 0.2s;
+  transform: translate(0, 5px);
 }
 
 .day-is-in-past {
@@ -87,10 +89,10 @@ const handleClick = (id: number) => {
 
 .day-selected {
   background-color: rgb(0, 180, 137, 0.7);
-  min-height: 20px;
   padding: 6px;
   border-color: rgb(103, 177, 128);
   color: rgb(0, 0, 0, 1) !important;
+  transform: translate(0, 0px);
 }
 
 .day-item:hover {
@@ -161,13 +163,14 @@ const handleClick = (id: number) => {
   }
 
   100% {
-    padding: 8px;
+    padding: 6.4px;
   }
 }
 
 .input-cycle-ani {
   animation-name: input-cycle-ani;
   animation-duration: 0.8s;
+  outline-width: 0px;
 }
 
 @keyframes select-day-ani-left {

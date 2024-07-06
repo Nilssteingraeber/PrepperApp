@@ -2,32 +2,25 @@ import ListItemParams from "./ListEntriesParams";
 import { Item, ItemModel } from "../../../../schemas/Item";
 import { CreateRecipesParams } from "../recipes/RecipesCreateParameters";
 import { Recipe, RecipeModel } from "../../../../schemas/Recipe";
-import { EntryModel } from "../../../../schemas/Entry";
 import { DataEntryModel } from "../../../../schemas/data_entries/DataEntry";
+import { eachDayOfInterval, parseISO } from 'date-fns';
 
 export const listEntries = async (searchParams: ListItemParams) => {
   if (searchParams.validate() === false) {
     return { status: 422, ok: false };
   }
 
-  const result: Promise<void>[] = [];
+  let result;
 
-  await Promise.all(
-    searchParams.validDates.map(async (date) => {
-      await listEntriesOnDay(date);
+  const allDaysBetween = eachDayOfInterval({start: searchParams.dateRange.startDate, end: searchParams.dateRange.endDate})
+
+  result = await Promise.all(
+    allDaysBetween.map(async (date: Date) => {
+      return listEntriesOnDay(date);
     })
   );
 
-  // console.log(await DataEntryModel.aggregate([{ $sample: { size: 1 } }]).then((result) => {
-  //   return result
-  // }))
-
-  console.log(result);
-  return { status: 200, ok: true, data: [] };
-
-  // return await ItemModel.find().limit(searchParams.maxAmount).then((result) => {
-  //    return { "status": 200, "ok": true, "data": result }
-  // })
+  return { status: 200, ok: true, data: result };
 };
 
 export const listEntriesOnDay = async (date: Date) => {
@@ -39,7 +32,6 @@ export const listEntriesOnDay = async (date: Date) => {
 
   const startOfDay = startOfDayDate.getTime()
   const endOfDay = endOfDayDate.getTime()
-  console.log("Trying to find between " + Number(startOfDay) + " and " + Number(endOfDay));
 
   try {
     const results = await DataEntryModel.find({
@@ -49,7 +41,6 @@ export const listEntriesOnDay = async (date: Date) => {
             { startDate: { $lte: endOfDay }, endDate: { $gte: startOfDay } },
             { startDate: { $gte: startOfDay, $lte: endOfDay } },
             { endDate: { $gte: startOfDay, $lte: endOfDay } },
-            { startDate: "1719439200000"}
           ],
         },
       },
@@ -62,13 +53,6 @@ export const listEntriesOnDay = async (date: Date) => {
 };
 
 export const createRecipe = async (params: CreateRecipesParams) => {
-  const data = new Recipe(
-    params.description,
-    params.ingredients,
-    params.amountPeople,
-    params.prepDuration
-  );
-  const recipe = new RecipeModel(data);
-  const savedUser = await recipe.save();
-  return savedUser;
+  
+  
 };

@@ -1,14 +1,15 @@
-export class DataEntry {
+export class DateEntry {
 
     startDate: Date;
     endDate: Date;
 
     constructor(
-        startDate: Date, endDate: Date
+        start: Date, end: Date
     ) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+
+        this.startDate = start;
+        this.endDate = end;
     }
 }
 
-export default DataEntry
+export default DateEntry
