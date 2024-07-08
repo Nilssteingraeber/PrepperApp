@@ -15,6 +15,8 @@ const preffered_image = props.item?.preffered_image ?? 1
 
 const path = computed(() => {
 
+	console.log(preffered_image.toString())
+
 	if(props.item == undefined) {
 		return;
 	}

@@ -27,10 +27,15 @@ const loadCurrentItem = async () => {
 };
 
 const getAmountItemsNeeded = (index: number) => {
+
+    console.log(currentSupplier.recipe)
+
     console.log(currentItems.items[index].amountValueNeeded, currentItems.items[index].itemObject.quantity_value, 
     currentItems.items[index].amountValueNeeded / currentItems.items[index].itemObject.quantity_value)
 
-    return currentItems.items[index].amountValueNeeded / currentItems.items[index].itemObject.quantity_value
+    console.log(currentItems.items[index])
+
+    return Math.ceil(currentItems.items[index].amountValueNeeded / currentItems.items[index].itemObject.quantity_value ?? "0")
 }
 
 
@@ -49,7 +54,6 @@ const loadDataSupplier = () => {
         },
     }).then((result) => {
         result.json().then((json) => {
-            console.log("SSSSSSSSSSSSSS", json)
             currentSupplier.recipe = json
         })
     })
@@ -90,6 +94,7 @@ const crossedClasstext = (index: number) => {
 
 
 const showSupplier = computed(() => {
+    console.log(currentSupplier.recipe)
     return Boolean(currentSupplier.recipe.recipeTitle)
 })
 

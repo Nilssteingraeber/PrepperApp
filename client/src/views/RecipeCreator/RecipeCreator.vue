@@ -177,30 +177,6 @@ const appendCurrentStep = () => {
 
 
 
-// Add to Item List Handling //
-
-const addToList = watch(() => store.state.searchbarClickedAddItem, (newValue, oldValue) => {
-
-    if (newValue === undefined)
-        return;
-
-    const addedItem = store.state.searchbarClickedAddItem;
-    const newIngredient = new Ingredient((addedItem as Item).code, 1, "0", "KG");
-
-    const findSameIngredient = getCurrentRecipe().ingredients.find((ingredient: Ingredient) => {
-        return addedItem.code === ingredient.itemCode
-    })
-
-    if (findSameIngredient) {
-        (findSameIngredient as Ingredient).amountItem += 1;
-    } else {
-        getCurrentRecipe().ingredients.push(newIngredient)
-    }
-
-    store.commit("setSearchResultAddToRecipe", undefined)
-})
-
-
 // Recipe Mode //
 const toggleRecipeMode = () => {
     store.commit("toggleRecipeItemSelectModeActive")
@@ -213,6 +189,15 @@ const deleteIngredients = () => {
 const deleteIngredient = (code: string) => {
     getCurrentRecipe().ingredients = getCurrentRecipe().ingredients.filter((ingredient) => {
         return ((ingredient as Ingredient).itemCode !== code)
+    })
+}
+
+const setIngredientAmountValue = (code: string, value: number) => {
+    console.log("set", code, "to", value)
+    getCurrentRecipe().ingredients.forEach((ingredient) => {
+        if((ingredient as Ingredient).itemCode === code) {
+            ingredient.amountValue = value.toString()
+        }
     })
 }
 
@@ -278,7 +263,7 @@ const deleteIngredient = (code: string) => {
                         v-for="(ingredient, index) in currentRecipe.data.ingredients" :key="ingredient.itemCode"
                         :id="index.toString()">
                         <div class="col-12" :id="index.toString()">
-                            <ItemIngredientDisplay :ingredient="ingredient" @delete-ingredient="deleteIngredient" />
+                            <ItemIngredientDisplay :ingredient="ingredient" @delete-ingredient="deleteIngredient" @set-amount="setIngredientAmountValue"/>
                         </div>
                     </div>
                 </div>

@@ -9,19 +9,17 @@ import ItemImage from './ItemImage.vue'
 import type Ingredient from '@/code/ingredient/Ingredient';
 
 const props = defineProps(["ingredient"])
-
 const ingredient = props.ingredient as Ingredient
-
 const url = 'http://localhost:5173/api'
 
 const currentlyShowingItem = reactive({ "data": {} })
+const itemNeededInput = ref(ingredient.amountValue ?? 1)
 
 const getCurrentlyShowingItem = (): Item => {
     return currentlyShowingItem.data as Item 
 }
 
 onBeforeMount(() => {
-    
     fetch(url + '/items', { headers: { "itemId": ingredient.itemCode }, method: "GET" }).then((result) => {
         result.json().then((json) => {
             currentlyShowingItem.data = json as Item
@@ -30,39 +28,28 @@ onBeforeMount(() => {
     })
 })
 
-const itemStringTotalQuantity = computed(() => {
-    if(!getCurrentlyShowingItem()) {
-        return "";
-    }
-    return getQuantityString(getCurrentlyShowingItem().quantity_value, getCurrentlyShowingItem().quantity_type, ingredient.amountItem)
-})
-
-const quantityTypeNeeded = computed(() => {
-    if(!getCurrentlyShowingItem()) {
-        return "";
-    }
-    return getQuantityTypeString(getCurrentlyShowingItem().quantity_type ?? 1)
-})
-
-const itemNeededInput = ref(parseFloat(ingredient.amountValue) ?? 1)
-
-
-//const itemString = getCurrentlyShowingItem() ? getQuantityString(getCurrentlyShowingItem().quantity_value, getCurrentlyShowingItem().quantity_type, ingredient.amountItem) : ""
-// const quantityTypeNeeded = getCurrentlyShowingItem() ? getQuantityTypeString(getCurrentlyShowingItem().quantity_type ?? 1) : ""
-
+// WATCH
 watch(() => itemNeededInput.value, () => {
     updateNeeded()
 })
 
+
+// METHODS
 const updateNeeded = () => {
     ingredient.amountItem = Math.ceil(itemNeededInput.value / (parseFloat(getCurrentlyShowingItem()?.quantity_value ?? "0")))
+    ingredient.amountValue = itemNeededInput.value
+    emits('set-amount', getCurrentlyShowingItem().code, itemNeededInput.value);
 }
 
-const emits = defineEmits(['delete-ingredient']);
+
+// EMITS
+const emits = defineEmits(['delete-ingredient', 'set-amount']);
 const handleDelete = () => {
     emits('delete-ingredient', getCurrentlyShowingItem().code);
 };
 
+
+// COMPUTED 
 const quantity_value = computed(() => {
     if(getCurrentlyShowingItem())
     return getQuantityString(getCurrentlyShowingItem().quantity_value, getCurrentlyShowingItem().quantity_type)
@@ -71,6 +58,13 @@ const quantity_value = computed(() => {
 const ingredientItemName = computed(() => {
     if(getCurrentlyShowingItem())
         return getCurrentlyShowingItem().product_name
+})
+
+const quantityTypeNeeded = computed(() => {
+    if(!getCurrentlyShowingItem()) {
+        return "";
+    }
+    return getQuantityTypeString(getCurrentlyShowingItem().quantity_type ?? 1)
 })
 
 updateNeeded()

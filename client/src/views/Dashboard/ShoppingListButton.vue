@@ -112,9 +112,8 @@ const turnOn = () => {
     color: white;
     animation-name: toggle-ani;
     animation-duration: 0.3s;
-    outline: solid rgb(52, 175, 154) 2px !important;
+    outline: solid rgb(52, 175, 154) 3px !important;
     border-radius: 5px;
-    box-shadow: 0px 0px 5px 2px rgb(0, 0, 0, 0.3);
 }
 
 .is-toggled-off {
