@@ -8,16 +8,15 @@ import store from '@/store';
 const props = defineProps(['amountDays', 'selected', 'showInputAnimation', "reff", 'doSelectDayAnimation'])
 const emit = defineEmits(['update:selected'])
 
-const currentState = reactive({ amount: 7, select: store.state.cycleObject.selectedIndex, showInputAnimation: props.showInputAnimation, aniDirection: 0 })
 
 const currentData = computed(() => {
 
   const isWeekend = (index: number) => {
-    return (store.state.cycleObject as Cycle).getDayAtIndex(index).getDay() === 6 || (store.state.cycleObject as Cycle).getDayAtIndex(i).getDay() === 0
+    return (store.state.cycleObject as Cycle).getDayAtIndex(index).getDay() === 5 || (store.state.cycleObject as Cycle).getDayAtIndex(i).getDay() === 6
   }
 
   const isSunday = (index: number) => {
-    return (store.state.cycleObject as Cycle).getDayAtIndex(index).getDay() === 0
+    return (store.state.cycleObject as Cycle).getDayAtIndex(index).getDay() === 6
   }
 
   const b = []
@@ -26,6 +25,8 @@ const currentData = computed(() => {
     const weekend = isWeekend(i)
     const isSelectedDay = i === store.state.cycleObject.selectedIndex
     const dayOfWeek = (store.state.cycleObject as Cycle).getCurrentDateInWeek()
+
+   
 
     let classText = isSelectedDay ? 'day-item day-selected ' : 'day-item'
     let classTextNoti = isSelectedDay ? " day-notification-active " : " day-notification "

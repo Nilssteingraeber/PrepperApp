@@ -9,15 +9,12 @@ import Ingredient from './../../code/ingredient/Ingredient'
 import Recipe, { Step } from '@/code/recipe/Recipe';
 import ItemIngredientDisplay from '../ItemDisplay/ItemIngredientDisplay.vue';
 import type { Item } from '@/code/item/Item';
+import router from '@/router';
 
 
-// const getCurrentRecipe = (): Recipe => {
-//     return store.state.currentlyCreatingRecipe as Recipe
-// }
-
+const url = 'http://localhost:5173/api'
 
 const currentRecipe = reactive({ data: store.state.currentlyCreatingRecipe })
-
 const getCurrentRecipe = (): Recipe => {
     return currentRecipe.data as Recipe
 }
@@ -27,37 +24,64 @@ const currentRecipeAmountPeople = ref(getCurrentRecipe().recipeAmountPeople);
 const currentNewRecipeStepString = ref("");
 const isAddBtnDisabled = ref(true);
 const peopleIconRef = ref("io-person-sharp");
+const imageUrl = ref("https://upload.wikimedia.org/wikipedia/commons/b/b9/Spaghetti_Bolognese_-_Pizzeria_Bella_Italia_%28Cr%C3%A9pieux-la-Pape%29_en_f%C3%A9vrier_2022.jpg")
 
-onBeforeMount(() => {
-    
-})
+const reset = () => {
+    console.log("Reset")
+    getCurrentRecipe().ingredients.length = 0
+    getCurrentRecipe().recipeAmountPeople = 0
+    getCurrentRecipe().recipeCreateData = {}
+    getCurrentRecipe().recipeSteps.length = 0
+    getCurrentRecipe().recipeTitle = "Name of Recipe"
+    getCurrentRecipe().imageUrl = ""
+
+
+    router.go(0)
+}
 
 onUnmounted(() => {
     getCurrentRecipe().recipeTitle = currentRecipeName.value
     getCurrentRecipe().recipeAmountPeople = currentRecipeAmountPeople.value
+    getCurrentRecipe().imageUrl = imageUrl.value;
     store.commit("setCurrentlyCreatingRecipe", getCurrentRecipe())
 })
 
-const url = 'http://localhost:5173/api'
+const deleteRecipe = () => {
+    fetch(url + '/recipes', {
+        method: "DELETE", body: JSON.stringify(currentRecipe.data), headers: {
+            'Content-Type': 'application/json',
+            "recipe_id": String(getCurrentRecipe()._id),
+        },
+    }).then((result) => {
+        reset()
+    })
+}
 
-const doSave = () => {
-    
+
+// Saving
+const showSaveAni = ref(false)
+const showSaveAniText = computed(() => {
+    return showSaveAni.value ? "show-glow-ani-no-mv" : ""
+})
+const doSave = async () => {
+
     getCurrentRecipe().recipeTitle = currentRecipeName.value
     getCurrentRecipe().recipeAmountPeople = currentRecipeAmountPeople.value
+    getCurrentRecipe().imageUrl = imageUrl.value
 
-    fetch(url + '/recipes', {
+    await fetch(url + '/recipes', {
         method: "POST", body: JSON.stringify(currentRecipe.data), headers: {
             'Content-Type': 'application/json'
         },
     }).then((result) => {
 
+        showSaveAni.value = true;
+
+        setTimeout(() => {
+            showSaveAni.value = false;
+        }, 500)
     })
 }
-
-onBeforeUnmount(() => {
-    doSave()
-})
-
 
 
 //////////////
@@ -71,6 +95,9 @@ const amountItemsInCurrentRecipe = computed(() => {
     return getCurrentRecipe().recipeSteps.length > 0 ? getCurrentRecipe().recipeSteps.length : "None";
 });
 
+
+//////////////
+// WATCHED  //
 watch(() => currentNewRecipeStepString.value, () => {
     isAddBtnDisabled.value = currentNewRecipeStepString.value.length === 0;
 });
@@ -89,7 +116,6 @@ watch(() => currentRecipeAmountPeople.value, (newValue: number, oldValue: number
         return;
     }
 });
-
 
 ///////////////
 // FUNCTIONS //
@@ -194,19 +220,33 @@ const deleteIngredient = (code: string) => {
 
 <template>
     <div class="pt-4">
-        <div class="col-12">
+        <div class="col-12" >
             <div class="row">
                 <div class="col-12">
-                    <div class="row justify-content-between align-items-center tile-card m-2">
+                    <div class="row justify-content-between align-items-center tile-card m-2" :class="showSaveAniText">
                         <div class="col-6">
                             <input v-model="currentRecipeName" type="text"
                                 class="recipe-title border rounded outline full-w form-control"></input>
                         </div>
-                        <div class="col-auto"></div>
                         <div class="col-2 col-md-2 col-lg-1">
-                            <button @click="doSave" class="save-btn btn btn-outline-secondary" type="button">
+                            <button @click="doSave" class="save-btn btn btn-outline-secondary" :class="showSaveAniText" type="button">
                                 <OhVueIcon name="fa-save" scale="1.3"></OhVueIcon>
                             </button>
+                        </div>
+                        <div class="col-2"></div>
+                        <div class="col-2 col-md-2 col-lg-1">
+                            <button @click="reset" class="save-btn btn btn-outline-secondary" type="button">
+                                <OhVueIcon name="md-refresh" scale="1.3"></OhVueIcon>
+                            </button>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-1">
+                            <button @click="deleteRecipe" class="save-btn btn btn-outline-secondary" type="button">
+                                <OhVueIcon name="bi-trash-fill" scale="1.3"></OhVueIcon>
+                            </button>
+                        </div>
+                        <div class="col-12 pt-4">
+                            <input v-model="imageUrl" type="text"
+                                class="url-text border rounded outline full-w form-control"></input>
                         </div>
                     </div>
                 </div>
@@ -379,5 +419,24 @@ const deleteIngredient = (code: string) => {
     border-radius: 10px;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
     transition: 0.3s;
+}
+
+@keyframes show-glow-ani-no-mv-ani {
+  0% {
+    box-shadow: 0px 0px 0px 2px rgb(57, 180, 159, 0.0) , 0px 0px 2px rgba(0, 0, 0, 0.25);
+  }
+
+  20% {
+    box-shadow: 0px 0px 0px 6px rgb(57, 180, 159, 0.6) , 0px 0px 2px rgba(0, 0, 0, 0.25);
+    transform: scale(1.01);
+  }
+  100% {
+    box-shadow: 0px 0px 0px 5px rgb(57, 180, 159, 0.0), 0px 0px 2px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.show-glow-ani-no-mv {
+  animation: show-glow-ani-no-mv-ani 0.6s;
+  animation-iteration-count: 1;
 }
 </style>

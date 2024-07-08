@@ -163,6 +163,7 @@ class Get extends ApiRoute {
     handleRoute(_request: Request, response: Response): Promise<any> {
 
         const id = _request.get("itemId")?.toString()
+        
 
         if (id) {
             const found_item = findSingleItem(id)

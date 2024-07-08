@@ -11,6 +11,7 @@ import Ingredient from '@/code/ingredient/Ingredient'
 
 import InfoButton from '../ItemDisplay/InfoButton.vue'
 import type { Item } from '@/code/item/Item'
+import EntryItem from '@/code/item/EntryItem'
 const props = defineProps(['item'])
 
 const productName = String(props.item['product_name']).split("&quot;").join('""')
@@ -42,21 +43,26 @@ const amountType = 'Grams'
 
 const sendAddRequest = () => {
 
+	// Selection Mode
 	if(store.state.isRecipeItemSelectModeActive) {
-		(store.state.currentlyCreatingRecipe as Recipe).ingredients.push(new Ingredient((props.item as Item).code, 1, (props.item as Item).quantity_value ?? 1, "KG"))
+		(store.state.currentlyCreatingRecipe as Recipe).ingredients.push(
+			new Ingredient((props.item as Item).code, 
+			1, 
+			(props.item as Item).quantity_value ?? 1, 
+			(props.item as Item).quantity_type ?? "KG"))
 		store.commit("addItemInSelectionMode", props.item)
 		return;
 	}
 
-
 	const url = 'http://localhost:5173/api'
+
+	const entryItem = new EntryItem(props.item.code, (props.item as Item).quantity_type, (props.item as Item).quantity_value, "0")
 
 	fetch("http://localhost:5173/api/entries/", {
 		method: "POST",
 		body: JSON.stringify({
-			item: props.item.code,
+			entryItems: [entryItem],
 			dates: [{startDate: store.state.cycleObject.getSelectedDateStarting(), endDate: store.state.cycleObject.getSelectedDateEnding()}],
-			status: ["0"]
 		}),
 		headers: {
 			"Content-type": "application/json; charset=UTF-8"
@@ -204,10 +210,11 @@ const sendAddRequest = () => {
 	width: 100%;
 	height: 100%;
 	border-radius: 15px;
-	box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.1);
+	box-shadow: 0px 0px 5px 2px rgb(0, 0, 0, 0.1);
 	background-position: center;
-	background-size: cover;
+	background-size: contain;
 	background-repeat: no-repeat;
+	background-color: white;
 }
 
 .buy-button:hover {

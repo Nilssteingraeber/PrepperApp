@@ -19,7 +19,7 @@ const store = createStore({
         clickedSearchResult: {},
         isRecipeItemSelectModeActive: false,
         itemAddedSelectMode: {},
-        currentlyCreatingRecipe: new Recipe([], "", 0, [], {}),
+        currentlyCreatingRecipe: new Recipe([], "", 0, [], {}, "https://upload.wikimedia.org/wikipedia/commons/b/b9/Spaghetti_Bolognese_-_Pizzeria_Bella_Italia_%28Cr%C3%A9pieux-la-Pape%29_en_f%C3%A9vrier_2022.jpg"),
         currentlyViewingItemCode: "",
         shoppingListActionsPressed: -1,
       }

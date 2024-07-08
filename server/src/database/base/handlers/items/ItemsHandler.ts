@@ -5,6 +5,8 @@ import { Recipe, RecipeModel } from "../../../../schemas/Recipe";
 import { ObjectId } from "mongoose";
 
 export const findSingleItem = async(id: string) => {
+
+    console.log(id)
     return await ItemModel.findOne({_id: id}).then((result) => {
         return { "status": 200, "ok": true, "data": result } 
     })

@@ -110,10 +110,6 @@ const isSelectionModeActive = computed(() => {
 
 <style>
 
-.notification-bar {
-  
-}
-
 .middle-btn {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;

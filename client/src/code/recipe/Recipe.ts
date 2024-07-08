@@ -19,16 +19,16 @@ export default class Recipe {
     recipeTitle: string
     recipeAmountPeople: number
     recipeSteps: Step[]
-    _id: string | undefined
+    imageUrl: string
 
     recipeCreateData: {}
 
-    constructor(ingredients: [], title: string, amountPeople: number, steps: [], data: {}, _id: string) {
+    constructor(ingredients: [], title: string, amountPeople: number, steps: [], data: {}, imageUrl: string) {
         this.ingredients = ingredients
         this.recipeTitle = title
         this.recipeAmountPeople = amountPeople
         this.recipeSteps = steps
         this.recipeCreateData = data
-        this._id = _id;
+        this.imageUrl = imageUrl
     }
 }

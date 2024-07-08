@@ -2,27 +2,46 @@ import mongoose, { Schema, Document, ObjectId, Types, SchemaTypes } from "mongoo
 import { DataSupplier } from "./DataSupplier";
 import DateRange from "./DateRange";
 
-export class DataEntry {
-    itemIds: [mongoose.Types.ObjectId | String]
-    validDates: [DateRange]
-    dataSupplier: DataSupplier
-    status: [string]
+
+export class EntryItem {
+    itemId: String
+    amountTypeNeeded: String
+    amountValueNeeded: String
+    status: String
+    private _id: any;
 
     constructor(
-        itemIds: [mongoose.Types.ObjectId | String], validDates: [DateRange], dataSupplier: DataSupplier, status: [string],
+        itemId: String,
+        amountTypeNeeded: String,
+        amountValueNeeded: String,
+        status: String
     ) {
-        this.itemIds = itemIds;
+        this.itemId = itemId
+        this.amountTypeNeeded = amountTypeNeeded
+        this.amountValueNeeded = amountValueNeeded
+        this.status = status
+    }
+}
+
+export class DataEntry {
+
+    entryItems: EntryItem[]
+    validDates: DateRange[]
+    dataSupplier: DataSupplier
+
+    constructor(
+        entryItems: EntryItem[], validDates: DateRange[], dataSupplier: DataSupplier,
+    ) {
+        this.entryItems = entryItems;
         this.validDates = validDates;
         this.dataSupplier = dataSupplier;
-        this.status = status;
     }
 }
 
 const DataEntrySchema: Schema = new Schema({
-    itemIds: { type: [SchemaTypes.String], required: true },
-    validDates: { type: [{...DateRange}], required: true },
-    dataSupplier: { type: {...DataSupplier}, required: true },
-    status: {type: [SchemaTypes.String], required: true}
+    entryItems: { type: [{ ...EntryItem }], required: true },
+    validDates: { type: [{ ...DateRange }], required: true },
+    dataSupplier: { type: { ...DataSupplier }, required: true },
 });
 
 export const DataEntryModel = mongoose.model<DataEntry>("dataEntry", DataEntrySchema);

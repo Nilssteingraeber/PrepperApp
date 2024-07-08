@@ -35,7 +35,8 @@ export class Cycle {
         }
 
         this.endDate = new Date(addDays(this.startDate, 6).setHours(23, 59, 59, 999))
-        this.selectedIndex = Number(getDay(new Date())) - 1
+        const currentDay = getDay(new Date())
+        this.selectedIndex = (currentDay + 6) % 7 // Dummer JS Modulo
     }
 
     getDaterangeTomorrowEnd = (): {"start": Date, "end": Date} => {

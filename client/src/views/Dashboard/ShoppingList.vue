@@ -5,6 +5,8 @@ import type { Cycle } from '@/code/cycle/Cycle'
 import ShoppingListEntry from './ShoppingListEntry.vue'
 import { OhVueIcon } from 'oh-vue-icons'
 import ShoppingListRecipeEntry from './ShoppingListRecipeEntry.vue'
+import { DataEntry } from '@/code/item/DataEntry'
+import EntryItem from '@/code/item/EntryItem'
 
 const url = 'http://localhost:5173/api'
 const array: string[] = []
@@ -19,6 +21,7 @@ const timestamp = computed(() => {
     return new Date().getTime
 })
 
+const reactiveData = reactive({ entries: [] })
 
 
 
@@ -65,45 +68,58 @@ const calcIsEmpty = computed(() => isEmpty.value)
 const allSingleEntrieItems = reactive({ list: [] })
 const allRecipeEntrieItems = reactive({ list: [] })
 
-const saveAllEntries = () => {
-    const allPromises = allSingleEntrieItems.list.map(async entryObject => {
 
-        const result = fetch(`${url}/entries`, {
-            method: "PUT",
-            body: JSON.stringify({ entry: entryObject.entry }),
-            headers: { 'Content-Type': 'application/json' }
-        })
-        return result
-    })
-    return Promise.all(allPromises)
-}
+const tickAll = async () => {
 
-const selectAll = async () => {
-    allSingleEntrieItems.list.forEach(entryObject => {
-        entryObject.entry.status = entryObject.entry.status.map((status) => {
-            return status === "1" ? "0" : "1"
-        })
+    const allIds: any[] = []
+    reactiveData.entries.forEach((a) => {
+        allIds.push(a.entry._id)
     })
-    await saveAllEntries()
-    getAllEntries()
+
+    fetch(url + '/entries/actions', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: "tickAll", ids: allIds })
+    }).then(() => {
+        getAllEntries()
+    })
 }
 
 const crossSelected = async () => {
-    allSingleEntrieItems.list.forEach(entryObject => {
-        entryObject.entry.status = entryObject.entry.status.map(status => {
-            if (status === "0") return "0"
-            if (status === "1") return "2"
-            return status
-        })
+    const allIds: any[] = []
+    reactiveData.entries.forEach((a) => {
+        allIds.push(a.entry._id)
     })
-    await saveAllEntries()
-    getAllEntries()
+
+    fetch(url + '/entries/actions', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: "crossSelected", ids: allIds })
+    }).then(() => {
+        getAllEntries()
+    })
+}
+
+const deleteAllCrossed = async () => {
+
+    const allIds: any[] = []
+    reactiveData.entries.forEach((a) => {
+        allIds.push(a.entry._id)
+    })
+
+    fetch(url + '/entries/actions', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: "deleteCrossed", ids: allIds })
+    }).then(() => {
+        getAllEntries()
+    })
 }
 
 watch(() => store.state.shoppingListActionsPressed, () => {
     if (store.state.shoppingListActionsPressed === -1) return
 
-    if (store.state.shoppingListActionsPressed === 1) selectAll()
+    if (store.state.shoppingListActionsPressed === 1) tickAll()
     if (store.state.shoppingListActionsPressed === 2) crossSelected()
     if (store.state.shoppingListActionsPressed === 3) deleteAllCrossed()
 
@@ -111,33 +127,11 @@ watch(() => store.state.shoppingListActionsPressed, () => {
 })
 
 
-
-const deleteAllCrossed = async () => {
-
-    const idsToDelete = allSingleEntrieItems.list
-        .filter((entryObject, index) => { return entryObject.entry.status[index] === "1" })
-        .map(entryObject => entryObject.entry._id)
-        
-    await fetch(`${url}/entries`, {
-        method: "DELETE",
-        body: JSON.stringify({ ids: idsToDelete }),
-        headers: { 'Content-Type': 'application/json' }
-    })
-
-    getAllEntries()
-}
-
-const updateStatus = (entryId: string, index: number) => {
-
-}
-
 const getAllEntries = () => {
 
-    const allSingleEntries: any[] = []
-    const allRecipeEntries: any[] = []
-    const allSingleEntriesPromises: Promise<any>[] = []
-    const allRecipeEntriesPromises: Promise<any>[] = []
+    reactiveData.entries.length = 0
 
+    const allEntries: any[] = []
 
     fetch(`${url}/entries`, {
         headers: {
@@ -146,91 +140,40 @@ const getAllEntries = () => {
         }
     }).then(result => {
         result.json().then(json => {
-            json.forEach(day => {
-                day.forEach(entry => {
-                    if (entry.dataSupplier.recipeId) {
-                        allRecipeEntries.push({ entry, entry_id: entry._id })
-                    } else {
-                        allSingleEntries.push(entry)
-                    }
+            json.forEach((day: any[]) => {
+                day.forEach((entry, index) => {
+                    allEntries.push({ "entry": (entry as DataEntry), indexLoaded: index })
                 })
             })
         }).then(() => {
-            allSingleEntries.forEach((entry, index) => {
-                entry.itemIds.forEach(item => {
-                    allSingleEntriesPromises.push(
-                        fetch(`${url}/items`, { headers: { itemId: item } }).then(async result => {
-                            const json = await result.json()
-                            return ({ item: json, index, entry })
-                        })
-                    )
-                })
-            })
 
-            allRecipeEntries.forEach(entryObject => {
-                entryObject.entry.itemIds.forEach(item => {
-                    allRecipeEntriesPromises.push(
-                        fetch(`${url}/items`, { headers: { itemId: item } }).then(result => {
-                            return result.json().then(json => ({ item: json, owner: entryObject.entry_id }))
-                        })
-                    )
-                })
-            })
-        }).then(() => {
-            let isEmptyNow = false
+            let sortedEntries = allEntries.sort((a, b) => {
+                // Check if `recipeId` is present in `dataSupplier`
+                let hasRecipeIdA = !!a.entry.dataSupplier.recipeId;
+                let hasRecipeIdB = !!b.entry.dataSupplier.recipeId;
 
-            Promise.all(allSingleEntriesPromises).then(value => {
-                allSingleEntrieItems.list = value
-                if (value.length > 0) isEmptyNow = true
-            }).then(() => {
-                Promise.all(allRecipeEntriesPromises).then(value => {
-                    const groups = groupByOwner(value)
-                    groups.forEach(group => {
-                        allRecipeEntries.forEach(recipe => {
-                            if (group.owner === recipe.entry_id) {
-                                group.recipe_id = recipe.entry.dataSupplier.recipeId
-                            }
-                        })
-                    })
-                    allRecipeEntrieItems.list = groups
-                    if (groups.length > 0) isEmptyNow = false
-                })
-            }).then(() => {
+                // Compare based on presence of `recipeId`
+                if (hasRecipeIdA && !hasRecipeIdB) {
+                    return 1; // `a` should come after `b`
+                } else if (!hasRecipeIdA && hasRecipeIdB) {
+                    return -1; // `a` should come before `b`
+                } else {
+                    return 0; // Maintain order
+                }
+            });
+
+            reactiveData.entries = sortedEntries
+
+            if(sortedEntries.length == 0) {
+                isEmpty.value = true
+            } else {
                 isEmpty.value = false
-                isEmpty.value = isEmptyNow
-            })
+            }
         })
     })
 }
 
-const groupByOwner = (entries: any[]) => {
-    const groupedEntries = entries.reduce((acc, { item, owner }) => {
-        if (!acc[owner]) {
-            acc[owner] = []
-        }
-        acc[owner].push(item)
-        return acc
-    }, {})
-
-    return Object.keys(groupedEntries).map(owner => ({
-        owner,
-        items: groupedEntries[owner]
-    }))
-}
-
 watch(() => [data.timeframe, store.state.cycleObject], getAllEntries)
-
-onBeforeUnmount(saveAllEntries)
-
-
-
-
-
-const reactiveData = reactive({entries: [], states: []})
-
-
-
-
 
 </script>
 
@@ -240,7 +183,7 @@ const reactiveData = reactive({entries: [], states: []})
             <div class="col">
                 <div class="list-name">
                     <div class="row">
-                        <div class="col-12" @click="saveAllEntries">
+                        <div class="col-12">
                             WeeklyList
                         </div>
                     </div>
@@ -249,22 +192,16 @@ const reactiveData = reactive({entries: [], states: []})
         </div>
         <hr>
         <div class="row">
-            <div class="col-12" v-if="calcIsEmpty" v-for="(entryObject, index) in allSingleEntrieItems.list"
-                :key="entryObject.item._id + entryObject.entry._id + entryObject.entry.status[index]">
+            <div class="col-12" v-if="!isEmpty" v-for="(entryObject, index) in reactiveData.entries"
+                :key="entryObject.entry">
                 <div class="row justify-content-start align-items-center">
-                    <ShoppingListEntry :entryItem="entryObject"></ShoppingListEntry>
+                    <ShoppingListEntry :entryObject="entryObject"></ShoppingListEntry>
                 </div>
             </div>
-            <div class="col-12" v-if="calcIsEmpty" v-for="(item, index) in allRecipeEntrieItems.list"
-                :key="item.item._id + '_' + item.entry.status[index]">
-                <div class="row justify-content-start align-items-center">
-                    <ShoppingListRecipeEntry :item="item"></ShoppingListRecipeEntry>
-                </div>
-            </div>
-            <div class="col-12 text-center p-5" v-if="!calcIsEmpty">
+            <div class="col-12 text-center p-5" v-if="isEmpty">
                 Oh, your List is empty! Try adding some recipes or items!
             </div>
-            <div class="col-12 text-center" v-if="!calcIsEmpty">
+            <div class="col-12 text-center" v-if="isEmpty">
                 <OhVueIcon name="bi-patch-question-fill" animation="float" scale="3" />
             </div>
         </div>
@@ -295,4 +232,4 @@ const reactiveData = reactive({entries: [], states: []})
     margin-bottom: 15%;
     transition: 1s;
 }
-</style>
+</style>: string(: string)(: any[])(: { _id: any }): { itemIds: any[] }: any(: any)(: any)

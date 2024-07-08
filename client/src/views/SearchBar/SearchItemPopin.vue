@@ -164,7 +164,7 @@ const openItem = () => {
     transition: 0.2s;
     border-radius: 5px;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
 }
 </style>import type { Item } from '@/code/item/Item';

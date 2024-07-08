@@ -35,15 +35,18 @@ export class Recipe {
   recipeTitle: string
   recipeAmountPeople: number
   recipeSteps: Step[]
+  imageUrl: string
 
   recipeCreateData: {}
+    _id: any;
 
-  constructor(ingredients: Ingredient[], title: string, amountPeople: number, steps: Step[], data: {}) {
+  constructor(ingredients: Ingredient[], title: string, amountPeople: number, steps: Step[], data: {}, imageUrl: string) {
       this.ingredients = ingredients
       this.recipeTitle = title
       this.recipeAmountPeople = amountPeople
       this.recipeSteps = steps
       this.recipeCreateData = data
+      this.imageUrl = imageUrl
   }
 }
 
@@ -53,6 +56,7 @@ const RecipeSchema: Schema = new Schema({
   recipeTitle: { type: String, required: true},
   recipeAmountPeople: { type: Number, required: true },
   recipeSteps: { type: {...Step}, required: true },
+  imageUrl: {type: String, required: true},
 });
 
 export const RecipeModel = mongoose.model<Recipe>('recipe', RecipeSchema);

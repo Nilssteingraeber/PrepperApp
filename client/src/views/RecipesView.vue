@@ -28,6 +28,7 @@ fetch(url + '/recipes', {
 	},
 }).then((result) => {
 	result.json().then((json) => {
+		console.log(json)
 		recipesList.list = json
 	})
 })
@@ -37,7 +38,7 @@ fetch(url + '/recipes', {
 <template>
 	<div class="container"></div>
 	<div class="row">
-		<div class="col-3 pb-4" v-for="(recipe, index) in recipesList.list" :key="index">
+		<div class="col-3 pb-4" v-for="(recipe, index) in recipesList.list" :key="recipe._id">
 			<RecipeCard :recipe="recipe"></RecipeCard>
 		</div>
 	</div>

@@ -2,42 +2,64 @@
 import { OhVueIcon } from 'oh-vue-icons';
 import CardComp from './CardComp.vue'
 import type Recipe from '@/code/recipe/Recipe';
-import type Ingredient from '@/code/ingredient/Ingredient';
+import Ingredient from '@/code/ingredient/Ingredient';
 import store from '@/store';
+import EntryItem from '@/code/item/EntryItem';
+import { computed, onMounted, ref, watch } from 'vue';
+import router from '@/router';
 
 const props = defineProps(["recipe"])
 
 const getRecipe = () => {
-    
     return props.recipe as Recipe
 }
 
 
+const canAdd = ref(true)
+
 const handleAdd = () => {
 
-    const itemCodeArray = getRecipe().ingredients.map((ingredient) => {
-        return (ingredient as Ingredient).itemCode
+    if (canAdd.value === false) {
+        return;
+    }
+    canAdd.value = false;
+    setTimeout(() => {
+        canAdd.value = true;
+    }, 500)
+
+
+    const entryItems: EntryItem[] = []
+
+    getRecipe().ingredients.forEach((ingredient) => {
+        entryItems.push(new EntryItem(ingredient.itemCode, ingredient.amountType, ingredient.amountValue, "0"))
     })
 
-    const itemStatusArray: String[] = []
-
-    itemCodeArray.forEach(() => {
-        itemStatusArray.push("0")
-    })
-    
     fetch("http://localhost:5173/api/entries/", {
         method: "POST",
         body: JSON.stringify({
-            item: itemCodeArray,
+            entryItems,
             recipe_id: getRecipe()._id,
             dates: [{ startDate: store.state.cycleObject.getSelectedDateStarting(), endDate: store.state.cycleObject.getSelectedDateEnding() }],
-            status: itemStatusArray
         }),
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
+    }).then(() => {
+		store.commit("playInputAni")
     });
 
+}
+
+
+const imageUrl = computed(() => {
+    console.log(getRecipe().imageUrl ?? "@/assets/bild1.png")
+    return ` background-image: url(${getRecipe().imageUrl ?? "@/assets/bild1.png"}) `;
+})
+
+const openRecipe = () => {
+    console.log(getRecipe())
+    store.commit("setCurrentlyCreatingRecipe", getRecipe())
+    router.push("/recipecreator")
 }
 
 </script>
@@ -48,7 +70,7 @@ const handleAdd = () => {
         <div class="row">
             <div class="row ">
                 <div class="recipeCardMainTop">
-                    <div class="recipeCardImg">
+                    <div :style="imageUrl" class="recipeCardImg">
                         <div class="row recipeCardInfoHover">
                             <div class="col-12 justify-content-between">
                                 <div class="row">
@@ -83,7 +105,7 @@ const handleAdd = () => {
                             </button>
                         </div>
                         <div class="col-4">
-                            <button @click="handleAdd" class="addButton btn btn-outline-secondary my-3" type="button">
+                            <button @click="openRecipe" class="addButton btn btn-outline-secondary my-3" type="button">
                                 <OhVueIcon name="fa-cog" scale="1"></OhVueIcon>
                             </button>
                         </div>
@@ -131,12 +153,6 @@ const handleAdd = () => {
     position: relative;
     width: 100%;
     height: 50vh;
-    background-image: url("@/assets/bild1.png");
-    background-size: cover;
-    background-clip: padding-box;
-    background-repeat: no-repeat;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     transform: scale(1.2);
 }
 
@@ -145,7 +161,6 @@ const handleAdd = () => {
     position: relative;
     width: 100%;
     height: 50vh;
-    background-image: url("@/assets/bild1.png");
     background-size: cover;
     background-clip: padding-box;
     background-position: center;
