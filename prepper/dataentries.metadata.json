@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"prepper.dataentries"}],"uuid":"3e2b0e02fe8e4d64908f70fd25d7da84","collectionName":"dataentries","type":"collection"}

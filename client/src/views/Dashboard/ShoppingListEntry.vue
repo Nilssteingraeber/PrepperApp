@@ -30,8 +30,8 @@ const getAmountItemsNeeded = (index: number) => {
 
     console.log(currentSupplier.recipe)
 
-    console.log(currentItems.items[index].amountValueNeeded, currentItems.items[index].itemObject.quantity_value, 
-    currentItems.items[index].amountValueNeeded / currentItems.items[index].itemObject.quantity_value)
+    console.log(currentItems.items[index].amountValueNeeded, currentItems.items[index].itemObject.quantity_value,
+        currentItems.items[index].amountValueNeeded / currentItems.items[index].itemObject.quantity_value)
 
     console.log(currentItems.items[index])
 
@@ -81,7 +81,7 @@ const saveEntry = async () => {
 loadCurrentItem();
 
 const isCrossed = (index: number) => {
-    if(currentItems?.items[index])
+    if (currentItems?.items[index])
         return currentItems.items[index].status === "2"
     else {
         return false
@@ -94,7 +94,7 @@ const crossedClasstext = (index: number) => {
 
 
 const showSupplier = computed(() => {
-    console.log(currentSupplier.recipe)
+    console.log(currentSupplier.recipe.imageUrl)
     return Boolean(currentSupplier.recipe.recipeTitle)
 })
 
@@ -117,33 +117,48 @@ const openRecipe = () => {
     // router.push("/recipecreator")
 }
 
+const imageUrl = computed(() => {
+    console.log(currentSupplier.recipe.imageUrl ?? "@/assets/bild1.png")
+    return ` background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, )),url(${currentSupplier.recipe.imageUrl ?? "@/assets/bild1.png"}); background-position: center;`;
+})
+
 </script>
 
 <template>
     <div class="col-12">
-        <div class="row">
-            <div v-if="showSupplier" class="col-12 my-2">
-                <div class="row text-center justify-content-center align-items-center">
-                    <div class="col-auto supplier-text-title">{{ currentSupplier.recipe.recipeTitle ?? "Rezeptname" }}</div>
-                    <div class="col-1 supplier-text-title"><RecipeInfoButton :recipe="currentSupplier.recipe"></RecipeInfoButton></div>
+        <div class="row justify-content-center align-items-center">
+            <div v-if="showSupplier" class="col-12 mt-2 ">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-3 mt-5"><hr></div>
+                    <div class="col-4 supplier-text-title"><div class="bg-white rounded px-3 py-1">{{ currentSupplier.recipe.recipeTitle ?? "Rezeptname" }}</div>
+                    </div>
+                    <div class="col-2 supplier-text-title text-start">
+                        <RecipeInfoButton :recipe="currentSupplier.recipe"></RecipeInfoButton>
+                    </div>
+                    <div class="col-3 mt-5"><hr></div>
                 </div>
-                <hr>
             </div>
-            <div class="col-12" v-for="(entryObject, index) in currentItems.items" :key="entryObject.itemId">
-                <div class="row justify-content-start align-items-center entry" :class="crossedClasstext(index)">
-                    <div class="col-3">
-                        <div class="row text-center">
-                            <div class="col-12">
-                                <div class="checkbox">
-                                    <input :disabled="isCrossed(index)" @change="updateCheckboxes" v-model="entryObject.checked" type="checkbox">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12" v-for="(entryObject, index) in currentItems.items" :key="entryObject.itemId">
+                        <div class="row justify-content-start align-items-center entry"
+                            :class="crossedClasstext(index)">
+                            <div class="col-3">
+                                <div class="row text-center">
+                                    <div class="col-12">
+                                        <div class="checkbox">
+                                            <input :disabled="isCrossed(index)" @change="updateCheckboxes"
+                                                v-model="entryObject.checked" type="checkbox">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-7">
+                                <div class="itemname">{{ entryObject.itemObject.product_name }}</div>
+                            </div>
+                            <div class="col-2"> {{ getAmountItemsNeeded(index) }}</div>
                         </div>
                     </div>
-                    <div class="col-7">
-                        <div class="itemname">{{ entryObject.itemObject.product_name }}</div>
-                    </div>
-                    <div class="col-2"> {{ getAmountItemsNeeded(index) }}</div>
                 </div>
             </div>
         </div>
@@ -166,9 +181,20 @@ const openRecipe = () => {
     }
 }
 
+.recipe-image-row {
+
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
 .supplier-text-title {
-    font-size: larger;
+    opacity: 1.0;
+    font-size: x-large;
     padding-top: 4%;
+    color: black;
 }
 
 .entry {

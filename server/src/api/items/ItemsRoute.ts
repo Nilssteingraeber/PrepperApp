@@ -16,11 +16,10 @@ class ItemsRoute {
     allRoutes = [new Get(), new GetItemOrdered(), new CreateOrUpdateItem(), new GetRandomItem(), new SearchItem()];
 }
 
-
 class CreateOrUpdateItem extends ApiRoute {
     handleRoute(_request: Request, response: Response): Promise<any> | any {
 
-        
+
         const item = JSON.parse(JSON.stringify(_request.body) ?? "")
 
 
@@ -28,7 +27,7 @@ class CreateOrUpdateItem extends ApiRoute {
             response.status(422).json([""]);
             return;
         }
-        
+
         const item_code = item.code;
         const product_name = item.product_name;
         const generic_name = item.genericName;
@@ -45,22 +44,19 @@ class CreateOrUpdateItem extends ApiRoute {
         const quantity_type = item.quantity_type;
         const preffered_image = item.preffered_image;
 
-        console.log(preffered_image)
-
-        const newItem = new Item(product_name, generic_name, images, 
-            ingredients_text_de, ingredients_hierarchy, _keywords, allergens_hierarchy, 
-            nutrition_data_prepared_per, nutriments, producer, category, quantity_value, 
+        const newItem = new Item(product_name, generic_name, images,
+            ingredients_text_de, ingredients_hierarchy, _keywords, allergens_hierarchy,
+            nutrition_data_prepared_per, nutriments, producer, category, quantity_value,
             quantity_type, item_code, preffered_image)
 
-        ItemModel.updateOne({_id: newItem.item_code}, {...newItem}).then((result) => {
-            console.log()
-            if(result.acknowledged) {
+        ItemModel.updateOne({ _id: newItem.item_code }, { ...newItem }).then((result) => {
+            if (result.acknowledged) {
                 response.status(200).json(newItem);
             } else {
-                response.status(500).json({});
+                response.status(500).json({ errorMessage: "..." });
             }
         })
-        
+
         return []
     }
     constructor() {
@@ -91,17 +87,18 @@ class GetRandomItem extends ApiRoute {
 class SearchItem extends ApiRoute {
     handleRoute(_request: Request, response: Response): Promise<any> | any {
 
+        // Search for an item
         const amountSearched = parseInt(_request.get("amount") ?? "1") ?? 1
         const searchText = _request.get("searchText") ?? "Kekse"
 
-        if(searchText?.length < 3 || searchText?.length > 50) {
+        if (searchText?.length < 3 || searchText?.length > 50) {
             response.status(422).json({ "message": "Unprocessable Entity" })
             return;
         }
-        
 
-        const foundItems = ItemModel.find({ $text: { $search: searchText } }, { 
-            score: { $meta: "textScore" } }).sort({ score: { $meta: "textScore" } }).limit(amountSearched).then((result: any) => {
+        const foundItems = ItemModel.find({ $text: { $search: searchText } }, {
+            score: { $meta: "textScore" }
+        }).sort({ score: { $meta: "textScore" } }).limit(amountSearched).then((result: any) => {
             if (result) {
                 response.status(200).json(result);
             } else {
@@ -163,7 +160,7 @@ class Get extends ApiRoute {
     handleRoute(_request: Request, response: Response): Promise<any> {
 
         const id = _request.get("itemId")?.toString()
-        
+
 
         if (id) {
             const found_item = findSingleItem(id)

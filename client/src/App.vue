@@ -54,10 +54,6 @@ const recipeCreatorAnimationClass = computed(() => {
               <OhVueIcon :class="recipeCreatorAnimationClass" class=" me-3" name="io-sparkles" scale="1.3"/>
               Recipe Creator
             </RouterLink>
-            <RouterLink to="/settings" class="list-group-item list-group-item-action py-2 d-flex align-items-center"
-              :class="{ active: isRouteActive('/settings') }">
-              <OhVueIcon class="me-3" name="fa-cog" scale="1.3" />Settings
-            </RouterLink>
           </div>
         </div>
       </div>
