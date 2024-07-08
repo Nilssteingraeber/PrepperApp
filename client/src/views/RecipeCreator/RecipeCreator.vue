@@ -57,6 +57,27 @@ const deleteRecipe = () => {
     })
 }
 
+const addToList = watch(() => store.state.searchbarClickedAddItem, (newValue, oldValue) => {
+
+    if (newValue === undefined)
+        return;
+
+    const addedItem = store.state.searchbarClickedAddItem;
+    const newIngredient = new Ingredient((addedItem as Item).code, 1, (addedItem as Item).quantity_value, (addedItem as Item).quantity_type);
+
+    const findSameIngredient = getCurrentRecipe().ingredients.find((ingredient: Ingredient) => {
+        return addedItem.code === ingredient.itemCode
+    })
+
+    if (findSameIngredient) {
+        (findSameIngredient as Ingredient).amountItem += 1;
+    } else {
+        getCurrentRecipe().ingredients.push(newIngredient)
+    }
+
+    store.commit("setSearchResultAddToRecipe", undefined)
+})
+
 
 // Saving
 const showSaveAni = ref(false)
@@ -195,7 +216,7 @@ const deleteIngredient = (code: string) => {
 const setIngredientAmountValue = (code: string, value: number) => {
     console.log("set", code, "to", value)
     getCurrentRecipe().ingredients.forEach((ingredient) => {
-        if((ingredient as Ingredient).itemCode === code) {
+        if ((ingredient as Ingredient).itemCode === code) {
             ingredient.amountValue = value.toString()
         }
     })
@@ -205,7 +226,7 @@ const setIngredientAmountValue = (code: string, value: number) => {
 
 <template>
     <div class="pt-4">
-        <div class="col-12" >
+        <div class="col-12">
             <div class="row">
                 <div class="col-12">
                     <div class="row justify-content-between align-items-center tile-card m-2" :class="showSaveAniText">
@@ -214,7 +235,8 @@ const setIngredientAmountValue = (code: string, value: number) => {
                                 class="recipe-title border rounded outline full-w form-control"></input>
                         </div>
                         <div class="col-2 col-md-2 col-lg-1">
-                            <button @click="doSave" class="save-btn btn btn-outline-secondary" :class="showSaveAniText" type="button">
+                            <button @click="doSave" class="save-btn btn btn-outline-secondary" :class="showSaveAniText"
+                                type="button">
                                 <OhVueIcon name="fa-save" scale="1.3"></OhVueIcon>
                             </button>
                         </div>
@@ -263,7 +285,8 @@ const setIngredientAmountValue = (code: string, value: number) => {
                         v-for="(ingredient, index) in currentRecipe.data.ingredients" :key="ingredient.itemCode"
                         :id="index.toString()">
                         <div class="col-12" :id="index.toString()">
-                            <ItemIngredientDisplay :ingredient="ingredient" @delete-ingredient="deleteIngredient" @set-amount="setIngredientAmountValue"/>
+                            <ItemIngredientDisplay :ingredient="ingredient" @delete-ingredient="deleteIngredient"
+                                @set-amount="setIngredientAmountValue" />
                         </div>
                     </div>
                 </div>
@@ -407,21 +430,22 @@ const setIngredientAmountValue = (code: string, value: number) => {
 }
 
 @keyframes show-glow-ani-no-mv-ani {
-  0% {
-    box-shadow: 0px 0px 0px 2px rgb(57, 180, 159, 0.0) , 0px 0px 2px rgba(0, 0, 0, 0.25);
-  }
+    0% {
+        box-shadow: 0px 0px 0px 2px rgb(57, 180, 159, 0.0), 0px 0px 2px rgba(0, 0, 0, 0.25);
+    }
 
-  20% {
-    box-shadow: 0px 0px 0px 6px rgb(57, 180, 159, 0.6) , 0px 0px 2px rgba(0, 0, 0, 0.25);
-    transform: scale(1.01);
-  }
-  100% {
-    box-shadow: 0px 0px 0px 5px rgb(57, 180, 159, 0.0), 0px 0px 2px rgba(0, 0, 0, 0.25);
-  }
+    20% {
+        box-shadow: 0px 0px 0px 6px rgb(57, 180, 159, 0.6), 0px 0px 2px rgba(0, 0, 0, 0.25);
+        transform: scale(1.01);
+    }
+
+    100% {
+        box-shadow: 0px 0px 0px 5px rgb(57, 180, 159, 0.0), 0px 0px 2px rgba(0, 0, 0, 0.25);
+    }
 }
 
 .show-glow-ani-no-mv {
-  animation: show-glow-ani-no-mv-ani 0.6s;
-  animation-iteration-count: 1;
+    animation: show-glow-ani-no-mv-ani 0.6s;
+    animation-iteration-count: 1;
 }
 </style>
