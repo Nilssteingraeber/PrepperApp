@@ -1,66 +1,41 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import CycleSelectionHeader from '../CycleHeader/CycleSelectionHeader.vue';
-import { OhVueIcon } from 'oh-vue-icons';
+import CycleSelectionHeader from '../CycleHeader/CycleSelectionHeader.vue'
 import SearchBar from '../SearchBar/SearchBar.vue'
 </script>
 
 <template>
-	<div class="row justify-content-center pt-2 pb-3">
-		<!-- <div class="col-6" id="header-profile" style="text-align: right;">
-			<form id="avatar-dropdown">
-				<div class="dropdown">
-					<button class="btn btn-link" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-						aria-expanded="false">
-						<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="#49416D"
-							class="bi bi-person-fill" viewBox="0 0 16 16">
-							<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-						</svg>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-						<li>
-							<RouterLink to="/profile" id="header-link"><a class="dropdown-item">Profile</a>
-							</RouterLink>
-						</li>
-						<li>
-							<RouterLink to="/products" id="header-link"><a class="dropdown-item">Products</a>
-							</RouterLink>
-						</li>
-						<li>
-							<RouterLink to="/recipes" id="header-link"><a class="dropdown-item">Recipes</a>
-							</RouterLink>
-						</li>
-						<li>
-							<RouterLink to="/calender" id="header-link"><a class="dropdown-item">Calender</a>
-							</RouterLink>
-						</li>
-						<li>
-							<RouterLink to="/settings" id="header-link"><a class="dropdown-item">Settings</a>
-							</RouterLink>
-						</li>
-					</ul>
-				</div>
-			</form>
-		</div> -->
-		<div class="col-7">
-			<div class="row cyclebar">
-				<CycleSelectionHeader></CycleSelectionHeader>
-			</div>
-		</div>
-		<div class="col-5 align-self-center">
-			<SearchBar></SearchBar>
-		</div>
-	</div>
+  <nav class="navbar navbar-expand-xl bg-white fixed-top">
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <CycleSelectionHeader />
+      <SearchBar class="ms-auto" />
+    </div>
+  </nav>
 </template>
 
-<style>
-#brand-name {
-	font-size: 26px;
-	font-weight: bold;
-	color: #49416D;
+<style scoped>
+.navbar {
+  box-shadow:
+    0 0px 3px 0 rgba(var(--bs-box-shadow-color-rgb), 0.07),
+    0 2px 2px 0 rgba(var(--bs-box-shadow-color-rgb), 0.04);
+
+  padding-top: 0.5625rem;
+  margin-left: 240px;
 }
 
-#header-link {
-	text-decoration: none;
+@media (max-width: 1200px) {
+  .navbar {
+    margin-left: 0px;
+  }
 }
 </style>
