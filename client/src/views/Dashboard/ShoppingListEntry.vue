@@ -129,13 +129,19 @@ const imageUrl = computed(() => {
         <div class="row justify-content-center align-items-center">
             <div v-if="showSupplier" class="col-12 mt-2 ">
                 <div class="row justify-content-center align-items-center">
-                    <div class="col-3 mt-5"><hr></div>
-                    <div class="col-4 supplier-text-title"><div class="bg-white rounded px-3 py-1">{{ currentSupplier.recipe.recipeTitle ?? "Rezeptname" }}</div>
+                    <div class="col-3 mt-5">
+                        <hr>
+                    </div>
+                    <div class="col-4 supplier-text-title">
+                        <div class="bg-white rounded px-3 py-1">{{ currentSupplier.recipe.recipeTitle ?? "Rezeptname" }}
+                        </div>
                     </div>
                     <div class="col-2 supplier-text-title text-start">
                         <RecipeInfoButton :recipe="currentSupplier.recipe"></RecipeInfoButton>
                     </div>
-                    <div class="col-3 mt-5"><hr></div>
+                    <div class="col-3 mt-5">
+                        <hr>
+                    </div>
                 </div>
             </div>
             <div class="col-12">

@@ -80,10 +80,24 @@ const addToList = watch(() => store.state.searchbarClickedAddItem, (newValue, ol
 
 
 // Saving
+
+// Speichern, welche Animation
+// gezeigt werden soll
 const showSaveAni = ref(false)
+const showNoSaveAni = ref(false)
+
 const showSaveAniText = computed(() => {
-    return showSaveAni.value ? "show-glow-ani-no-mv" : ""
+    if(showSaveAni.value) {
+        return "show-glow-ani-no-mv"
+    }
+
+    if(showNoSaveAni.value) {
+        return "show-glow-ani-red-no-mv"
+    }
+    return ""
 })
+
+
 const doSave = async () => {
 
     getCurrentRecipe().recipeTitle = currentRecipeName.value
@@ -95,12 +109,17 @@ const doSave = async () => {
             'Content-Type': 'application/json'
         },
     }).then((result) => {
-
-        showSaveAni.value = true;
-
-        setTimeout(() => {
-            showSaveAni.value = false;
-        }, 500)
+        if(result.ok === true) {
+            showSaveAni.value = true;
+            setTimeout(() => {
+                showSaveAni.value = false;
+            }, 500)
+        } else {
+            showNoSaveAni.value = true;
+            setTimeout(() => {
+                showNoSaveAni.value = false;
+            }, 500)
+        }
     })
 }
 
@@ -342,13 +361,15 @@ const setIngredientAmountValue = (code: string, value: number) => {
 </template>
 
 <style>
+
+
+
 .select-mode-active {
     background-color: rgb(57, 180, 159) !important;
     outline: none !important;
     border: none !important;
     color: white !important;
 }
-
 
 .select-mode-button:hover {
     background-color: rgb(57, 180, 159, 0.2);
@@ -427,6 +448,26 @@ const setIngredientAmountValue = (code: string, value: number) => {
     border-radius: 10px;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
     transition: 0.3s;
+}
+
+@keyframes show-glow-ani-red-no-mv-ani {
+    0% {
+        box-shadow: 0px 0px 0px 2px rgb(57, 180, 159, 0.0), 0px 0px 2px rgba(0, 0, 0, 0.25);
+    }
+
+    20% {
+        box-shadow: 0px 0px 0px 6px rgba(235, 47, 40, 0.6), 0px 0px 2px rgba(0, 0, 0, 0.25);
+        transform: scale(1.01);
+    }
+
+    100% {
+        box-shadow: 0px 0px 0px 5px rgb(57, 180, 159, 0.0), 0px 0px 2px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.show-glow-ani-red-no-mv {
+    animation: show-glow-ani-red-no-mv-ani 0.6s;
+    animation-iteration-count: 1;
 }
 
 @keyframes show-glow-ani-no-mv-ani {

@@ -126,6 +126,7 @@ watch(() => store.state.shoppingListActionsPressed, () => {
     store.commit("setShoppingListClicked", -1)
 })
 
+// START
 
 const getAllEntries = () => {
 
