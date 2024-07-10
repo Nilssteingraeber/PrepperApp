@@ -25,7 +25,7 @@ const recipeCreatorAnimationClass = computed(() => {
         <div class="sidebar pe-2">
           <div class="list-group list-group-flush px-2 stickybar container-fluid">
             <div class="row" id="logo">
-              <RouterLink to="/" class="col"><img src="@/assets/logo.svg" style="height: auto; width: 75%"
+              <RouterLink to="/" class="col pb-3"><img src="@/assets/logo.svg" style="height: auto; width: 75%"
                 /><label id="brand-name"></label></RouterLink>
             </div>
             <RouterLink to="/dashboard" class="list-group-item list-group-item-action py-2 d-flex align-items-center"

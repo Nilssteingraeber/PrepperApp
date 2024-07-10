@@ -5,7 +5,7 @@ import RegisterView from '../views/RegisterView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import RecipesView from '@/views/RecipesView.vue'
 import ProductsView from '@/views/ProductsView.vue'
-import CalenderView from '@/views/CalenderView.vue'
+import CalenderView from '@/views/CalendarView.vue'
 import SettingsView from '@/views/SettingsView.vue'
 import DashboardView from '@/views/Dashboard/DashboardView.vue'
 import ItemReview from '@/views/ItemReview.vue'
@@ -43,8 +43,8 @@ const routes: Array<RouteRecordRaw> = [
     component: ProductsView
   },
   {
-    path: '/calender',
-    name: 'calender',
+    path: '/calendar',
+    name: 'calendar',
     component: CalenderView
   },
   {
