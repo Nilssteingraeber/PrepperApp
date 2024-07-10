@@ -24,7 +24,7 @@ const currentRecipeAmountPeople = ref(getCurrentRecipe().recipeAmountPeople);
 const currentNewRecipeStepString = ref("");
 const isAddBtnDisabled = ref(true);
 const peopleIconRef = ref("io-person-sharp");
-const imageUrl = ref("https://upload.wikimedia.org/wikipedia/commons/b/b9/Spaghetti_Bolognese_-_Pizzeria_Bella_Italia_%28Cr%C3%A9pieux-la-Pape%29_en_f%C3%A9vrier_2022.jpg")
+const imageUrl = ref(getCurrentRecipe().imageUrl ?? "https://upload.wikimedia.org/wikipedia/commons/b/b9/Spaghetti_Bolognese_-_Pizzeria_Bella_Italia_%28Cr%C3%A9pieux-la-Pape%29_en_f%C3%A9vrier_2022.jpg")
 
 const reset = () => {
     console.log("Reset")

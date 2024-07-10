@@ -23,36 +23,35 @@ const recipeCreatorAnimationClass = computed(() => {
     <div class="row">
       <div class="col-2 bg-white" style="height: 100vh;">
         <div class="sidebar pe-2">
-          <div class="list-group list-group-flush px-2 stickybar">
+          <div class="list-group list-group-flush px-2 stickybar container-fluid">
             <div class="row" id="logo">
-              <RouterLink to="/"><img alt="Prepper logo" class="logo pt-3"
-                  src="@/assets/logo_prepper_right.svg" /><label id="brand-name"></label></RouterLink>
+              <RouterLink to="/" class="col"><img src="@/assets/logo.svg" style="height: auto; width: 75%"
+                /><label id="brand-name"></label></RouterLink>
             </div>
-            <div class="row mt-3"></div>
             <RouterLink to="/dashboard" class="list-group-item list-group-item-action py-2 d-flex align-items-center"
               :class="{ active: isRouteActive('/dashboard') }">
-              <OhVueIcon class="me-3" name="md-spacedashboard" scale="1.3" />Dashboard
+              <OhVueIcon class="me-3" name="md-spacedashboard" scale="1.3" /><div class="d-none d-lg-block">Dashboard</div>
             </RouterLink>
             <RouterLink to="/products" class="list-group-item list-group-item-action py-2 d-flex align-items-center"
               :class="{ active: isRouteActive('/products') }">
-              <OhVueIcon class=" me-3" name="fa-shopping-cart" scale="1.3" />Products
+              <OhVueIcon class=" me-3" name="fa-shopping-cart" scale="1.3" /><div class="d-none d-lg-block">Products</div>
             </RouterLink>
             <RouterLink to="/recipes" class="list-group-item list-group-item-action py-2 d-flex align-items-center"
               :class="{ active: isRouteActive('/recipes') }">
-              <OhVueIcon class=" me-3" name="md-receipt" scale="1.3" />Recipes
+              <OhVueIcon class=" me-3" name="md-receipt" scale="1.3" /><div class="d-none d-lg-block">Recipes</div>
             </RouterLink>
             <RouterLink to="/calendar" class="list-group-item list-group-item-action py-2 d-flex align-items-center"
               :class="{ active: isRouteActive('/calendar') }">
-              <OhVueIcon class=" me-3" name="bi-calendar3-week-fill" scale="1.3" />Calendar
+              <OhVueIcon class=" me-3" name="bi-calendar3-week-fill" scale="1.3" /><div class="d-none d-lg-block">Calendar</div>
             </RouterLink>
             <RouterLink to="/itemreview" class="list-group-item list-group-item-action py-2 d-flex align-items-center"
               :class="{ active: isRouteActive('/itemreview') }">
-              <OhVueIcon class=" me-3" name="io-color-wand-outline" scale="1.3" />Item Review
+              <OhVueIcon class=" me-3" name="io-color-wand-outline" scale="1.3" /><div class="d-none d-lg-block">Item Review</div>
             </RouterLink>
             <RouterLink to="/recipecreator" class="list-group-item list-group-item-action py-2 d-flex align-items-center"
               :class="{ active: isRouteActive('/recipecreator') }">
               <OhVueIcon :class="recipeCreatorAnimationClass" class=" me-3" name="io-sparkles" scale="1.3"/>
-              Recipe Creator
+              <div class="d-none d-lg-block">Recipe Creator</div>
             </RouterLink>
           </div>
         </div>

@@ -13,44 +13,51 @@ class RecipesRoute {
 class Create extends ApiRoute {
     async handleRoute(_request: Request, response: Response): Promise<Promise<any> | any> {
 
-        const sentRecipe = _request.body as Recipe
+        const sentRecipe = _request.body as Recipe;
 
         if (sentRecipe && sentRecipe._id) {
             RecipeModel.findOne({ _id: sentRecipe._id }).then((result) => {
+
+                if (sentRecipe.recipeTitle.length == 0 || sentRecipe.recipeSteps.length == 0) {
+                    response.status(422).json({ errorMessage: "Required fields ('recipe-title or recipe-steps') missing!" });
+                    return;
+                }
+
                 if (result) {
                     RecipeModel.updateOne(
                         { _id: sentRecipe._id },
                         { $set: sentRecipe }
                     ).then((updateResult) => {
-                        response.status(200).json({ errorMessage: "..." })
+                        response.status(200).json({ message: "Recipe updated successfully" });
                     }).catch((err) => {
-                        response.status(500).json({ errorMessage: "..." })
+                        console.error('Error updating recipe: ', err);
+                        response.status(500).json({ errorMessage: "Error updating recipe" });
                     });
-
                 } else {
-                    response.status(500).json({ errorMessage: "..." })
+                    response.status(404).json({ errorMessage: "Recipe not found" });
                 }
             }).catch((err) => {
                 console.error('Error finding recipe: ', err);
-                response.status(500).json({ errorMessage: "..." })
+                response.status(500).json({ errorMessage: "Error finding recipe" });
             });
+        } else {
+            const newRecipe = new Recipe(sentRecipe.ingredients,
+                sentRecipe.recipeTitle, sentRecipe.recipeAmountPeople,
+                sentRecipe.recipeSteps, {},
+                sentRecipe.imageUrl);
+
+            if (newRecipe.recipeTitle.length == 0 || newRecipe.recipeSteps.length == 0) {
+                response.status(422).json({ errorMessage: "Required fields ('recipe-title or recipe-steps') missing!" });
+            } else {
+                const entry = new RecipeModel(newRecipe);
+                entry.save().then((r) => {
+                    response.status(200).json(r);
+                }).catch((err) => {
+                    console.error('Error saving new recipe: ', err);
+                    response.status(500).json({ errorMessage: "Error saving new recipe" });
+                });
+            }
         }
-
-        const newRecipe = new Recipe(sentRecipe.ingredients,
-            sentRecipe.recipeTitle, sentRecipe.recipeAmountPeople,
-            sentRecipe.recipeSteps, {},
-            sentRecipe.imageUrl)
-
-        if (newRecipe.recipeTitle.length == 0 || newRecipe.recipeSteps.length == 0) {
-            response.status(422).json({ errorMessage: "Required fields ('recipe-title or recipe-steps') missing!" })
-            return;
-        }
-
-        const entry = new RecipeModel(newRecipe)
-        const result = entry.save()
-        result.then((r) => {
-            response.status(200).json(r);
-        })
 
     }
     constructor() {
